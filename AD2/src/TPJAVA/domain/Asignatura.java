@@ -1,6 +1,7 @@
 package TPJAVA.domain;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Asignatura {
@@ -23,6 +24,23 @@ public class Asignatura {
     }
     public boolean getPromocionable(){
         return promocionable;
+    }
+
+    public void cargaAsistencia(Alumno alumno) {
+        int i = 0;
+        boolean encontrado = false;
+        Inscripcion inscripcion = inscripciones.get(i);
+        while (i < inscripciones.size() && !inscripcion.getAlumno().equals(alumno)) {
+            inscripcion = inscripciones.get(i);
+            i++;
+        }
+        if(i < inscripciones.size()){
+            inscripcion.marcaAsistencia();
+        }
+    }
+
+    Asignatura(){
+        inscripciones = new ArrayList<>();
     }
     // agregar metodo abstracto para inscribirse (agregar nodo en la lista dado un alumno como objeto parametro)
 

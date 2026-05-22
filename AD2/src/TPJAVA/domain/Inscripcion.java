@@ -26,6 +26,14 @@ public abstract class Inscripcion{
     public int getAsistencias(){
         return asistencias;
     }
+
+    public Alumno getAlumno(){
+        return  alumno;
+    }
+
+    public void marcaAsistencia(){
+        asistencias++;
+    }
     //agregar metodos
 
 }

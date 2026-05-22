@@ -1,7 +1,7 @@
 package TPJAVA.domain;
 
 public class InscripcionRegular extends Inscripcion{
-    //agregar metodos
+    //agregar posibles metodos
 
     @Override
     public boolean Promociona(){
