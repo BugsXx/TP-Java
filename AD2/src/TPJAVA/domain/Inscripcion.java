@@ -4,7 +4,5 @@ package TPJAVA.domain;
 public class Inscripcion{
     private Alumno alumno;
     private int asistencias;
-
-    private char condicion;
 }
 
