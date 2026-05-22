@@ -4,10 +4,10 @@ public class InscripcionOyente extends Inscripcion{
     //agregar metodos
 
     @Override
-    public boolean Promociona(){
+    public boolean Promociona(){ // el oyente no puede promocionar
         return false;
     }
-    public boolean Habilita(){
+    public boolean Habilita(){ // el oyente no puede habilitar
         return false;
     }
 }
