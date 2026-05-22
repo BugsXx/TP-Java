@@ -1,7 +1,7 @@
 package TPJAVA.domain;
 
 public class InscripcionOyente extends Inscripcion{
-    //agregar metodos
+    //agregar posibles metodos
 
     @Override
     public boolean Promociona(){ // el oyente no puede promocionar

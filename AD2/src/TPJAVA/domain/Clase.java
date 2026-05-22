@@ -9,7 +9,7 @@ public class Clase extends Asignatura{ // CLASE DE X DIA, NO UN TURNO
     private String id;
     private String fechaYHoraDictado;
 
-    //agregar metodos
+    //agregar posibles metodos
 
 
 }

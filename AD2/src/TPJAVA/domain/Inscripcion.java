@@ -7,6 +7,16 @@ public abstract class Inscripcion{
     private Alumno alumno;
     private int asistencias;
 
+    public String Condicion() {
+        if(Promociona()){
+            return "En Condiciones De Promocionar";
+        }
+        else if(Habilita()){
+            return "En Condiciones De Habilitar";
+        }
+        else return "Libre";
+    }
+
     public abstract boolean Promociona();
     public  abstract boolean Habilita();
 

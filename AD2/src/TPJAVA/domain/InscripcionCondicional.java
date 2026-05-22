@@ -1,7 +1,9 @@
 package TPJAVA.domain;
 
 public class InscripcionCondicional extends Inscripcion{
-    //agregar metodos
+
+
+    //agregar posibles metodos
 
     @Override
     public boolean Promociona(){
