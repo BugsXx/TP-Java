@@ -7,5 +7,6 @@ public class Alumno {
 
     private String matricula;
 
+    //agregar metodos
 
 }
