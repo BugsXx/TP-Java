@@ -11,6 +11,12 @@ public class Clase extends Asignatura{ // CLASE DE X DIA, NO UN TURNO
 
     //agregar posibles metodos
 
+    public String getId(){
+        return id;
+    }
+    public String getFechaYHoraDictado(){
+        return fechaYHoraDictado;
+    }
     Clase(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales,String id, String fechaYHoraDictado){
         super(cod, nombre, promocionable, cuatrimestre, tipo, clasesTotales);
         asistencia = new LinkedList<>();

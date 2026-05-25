@@ -26,6 +26,23 @@ public class Asignatura {
         return promocionable;
     }
 
+    public int getCuatrimestre() {
+        return cuatrimestre;
+    }
+
+    public boolean equals(Asignatura obj) {
+        return obj.getCod().equals(getCod());
+    }
+
+    public String getCod(){
+        return cod;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+
     public void cargaAsistencia(Alumno alumno) {
         Iterator<Inscripcion> it = inscripciones.iterator();
 

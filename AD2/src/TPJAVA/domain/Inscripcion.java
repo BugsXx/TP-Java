@@ -7,6 +7,11 @@ public abstract class Inscripcion{
     private Alumno alumno;
     private int asistencias;
 
+    Inscripcion(Asignatura asignatura, Alumno alumno){
+        this.asignatura = asignatura;
+        this.alumno = alumno;
+        asistencias = 0;
+    }
     public String Condicion() {
         if(Promociona()){
             return "En Condiciones De Promocionar";

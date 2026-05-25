@@ -18,4 +18,9 @@ public class Alumno {
     public boolean equals(Alumno obj) {
         return obj.getMatricula().equals(getMatricula());
     }
+
+    Alumno(String matricula){
+        this.matricula = matricula;
+        inscripciones = new LinkedList<>();
+    }
 }

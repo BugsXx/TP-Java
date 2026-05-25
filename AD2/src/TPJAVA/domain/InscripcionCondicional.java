@@ -4,7 +4,9 @@ public class InscripcionCondicional extends Inscripcion{
 
 
     //agregar posibles metodos
-
+    InscripcionCondicional(Asignatura asignatura, Alumno alumno){
+        super(asignatura, alumno);
+    }
     @Override
     public boolean Promociona(){
         Asignatura asignatura = getAsignatura();
