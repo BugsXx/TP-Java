@@ -1,4 +1,4 @@
-<img width="1249" height="682" alt="image" src="https://github.com/user-attachments/assets/c0f1b4de-9875-46c5-a8f6-69139c277f85" />
+
 
 # 🎓 Sistema de Gestión Académica (TPJAVA)
 
@@ -14,22 +14,7 @@ El código está organizado en dos paquetes principales:
 
 ### 🗺️ Mapa de Clases (Arquitectura)
 
-[ Universidad ] ──> Tiene muchas ──> [ Asignatura ]
-│
-Es heredada por
-│
-▼
-[ Clase ] (Control diario)
-│
-Registra asistencia en
-│
-▼
-[ Inscripcion ] (Abstracta)
-/       |
-
-/        |
-
-[Regular]     [Condicional]   [Oyente]
+<img width="1249" height="682" alt="image" src="https://github.com/user-attachments/assets/c0f1b4de-9875-46c5-a8f6-69139c277f85" />
 
 ---
 
