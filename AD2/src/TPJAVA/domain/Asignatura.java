@@ -28,7 +28,6 @@ public class Asignatura {
 
     public void cargaAsistencia(Alumno alumno) {
         int i = 0;
-        boolean encontrado = false;
         Inscripcion inscripcion = inscripciones.get(i);
         while (i < inscripciones.size() && !inscripcion.getAlumno().equals(alumno)) {
             inscripcion = inscripciones.get(i);
