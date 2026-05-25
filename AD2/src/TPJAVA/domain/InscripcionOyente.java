@@ -1,6 +1,7 @@
 package TPJAVA.domain;
 
 public class InscripcionOyente extends Inscripcion{
+
     //agregar posibles metodos
 
     @Override

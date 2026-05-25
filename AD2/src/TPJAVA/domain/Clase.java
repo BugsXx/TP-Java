@@ -1,19 +1,19 @@
 package TPJAVA.domain;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 public class Clase extends Asignatura{ // CLASE DE X DIA, NO UN TURNO
 
-    private List<Alumno> asistencia; // lista de Alumnos que asistieron a la clase
+    private LinkedList<Alumno> asistencia; // lista de Alumnos que asistieron a la clase
     private String id;
     private String fechaYHoraDictado;
 
     //agregar posibles metodos
 
-    Clase(String id, String fechaYHoraDictado){
-        asistencia = new ArrayList<>();
+    Clase(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales,String id, String fechaYHoraDictado){
+        super(cod, nombre, promocionable, cuatrimestre, tipo, clasesTotales);
+        asistencia = new LinkedList<>();
         this.id = id;
         this.fechaYHoraDictado = fechaYHoraDictado;
     }

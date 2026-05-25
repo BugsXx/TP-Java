@@ -1,8 +1,9 @@
 package TPJAVA.domain;
 
+import TPJAVA.gui.Menu;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
-
+        Menu.abreMenu(); //inicio del flow de la app
     }
 }

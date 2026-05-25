@@ -2,6 +2,7 @@ package TPJAVA.domain;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Asignatura {
@@ -38,8 +39,14 @@ public class Asignatura {
         }
     }
 
-    Asignatura(){
-        inscripciones = new ArrayList<>();
+    Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales){
+        inscripciones = new LinkedList<>();
+        this.cod = cod;
+        this.nombre = nombre;
+        this.promocionable = promocionable;
+        this.cuatrimestre = cuatrimestre;
+        this.tipo = tipo;
+        this.clasesTotales = clasesTotales;
     }
     // agregar metodo abstracto para inscribirse (agregar nodo en la lista dado un alumno como objeto parametro)
 
