@@ -1,7 +1,6 @@
 package TPJAVA.domain;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class Alumno {
     private LinkedList<Inscripcion> inscripciones;
