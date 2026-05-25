@@ -3,6 +3,9 @@ package TPJAVA.domain;
 public class InscripcionRegular extends Inscripcion{
     //agregar posibles metodos
 
+    InscripcionRegular(Asignatura asignatura, Alumno alumno){
+        super(asignatura, alumno);
+    }
     @Override
     public boolean Promociona(){
         Asignatura asignatura = getAsignatura();
