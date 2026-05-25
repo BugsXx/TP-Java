@@ -2,7 +2,34 @@
 
 # 🎓 Sistema de Gestión Académica (TPJAVA)
 
-Este proyecto simula la gestión de alumnos, asignaturas y el control de presentismo de una institución educativa. Su función principal es **calcular automáticamente la condición final del alumno** (Promociona, Habilita o Libre) según sus asistencias acumuladas y su tipo de inscripción.
+---
+
+## 📋 Requerimientos del Sistema (Funcionalidades)
+
+El sistema debe cumplir con los siguientes objetivos y flujos de trabajo principales:
+
+### 1. 💾 Carga de Datos
+* **Fuentes de datos:** Permitir la lectura e importación de la información de asignaturas, alumnos y clases a través de archivos externos (**XML, JSON o texto delimitado por comas/CSV**).
+* **Reglas de ordenamiento:** Los alumnos procesados deben quedar almacenados y ordenados **alfabéticamente por apellido y nombre**.
+* **Validación de integridad:** El sistema debe auditar la validez, completitud y consistencia de cada registro antes de insertarlo. En caso de fallas, se debe exportar un **informe detallado con los errores detectados**.
+
+### 2. 📝 Control de Presentismo
+* **Registro diario:** Permitir marcar la asistencia de un estudiante a una clase específica del calendario.
+* **Validación interna:** El software debe verificar rigurosamente que el alumno se encuentre previamente inscripto en la asignatura correspondiente antes de computar la falta o el presente.
+
+### 3. 📊 Reportes y Estadísticas (Pantalla y Archivos de Texto)
+El sistema debe ser capaz de generar y exportar tres tipos de informes críticos:
+
+* **🏆 Ranking de Asignaturas:** Listado completo de las materias ordenadas de mayor a menor según su **porcentaje general de presentismo** acumulado en todas sus clases.
+* **🔎 Detalle de Cátedra (Filtro por Materia):** Dado el código de una asignatura, exportar el desglose de cada alumno inscripto mostrando:
+  * Historial detallado de asistencias a clases individuales.
+  * Cantidad total de clases presenciales.
+  * Porcentaje de asistencia final sobre el total de la cursada.
+  * Modalidad de cursado (Regular, Condicional u Oyente).
+  * Condición académica resultante (*Libre, Puede habilitar, En condiciones de promocionar*).
+* **❌ Alumnos Libres:** Reporte exclusivo de estudiantes que perdieron la condición por inasistencias. El sistema debe permitir dos tipos de filtros:
+  * Listar los alumnos libres de **todas** las asignaturas del sistema.
+  * Listar los alumnos libres de las materias pertenecientes a un **año específico** de la carrera.
 
 ---
 
