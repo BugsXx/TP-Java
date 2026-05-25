@@ -1,13 +1,12 @@
 package TPJAVA.domain;
 
 
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Asignatura {
 
-    private List<Inscripcion> inscripciones; // inscriptos, pueden ser condicional, oyente o regular
+    private LinkedList<Inscripcion> inscripciones; // inscriptos, pueden ser condicional, oyente o regular
     private String cod;
     private String nombre;
     private int cuatrimestre; // DE 1 A 10
@@ -28,14 +27,18 @@ public class Asignatura {
     }
 
     public void cargaAsistencia(Alumno alumno) {
-        int i = 0;
-        Inscripcion inscripcion = inscripciones.get(i);
-        while (i < inscripciones.size() && !inscripcion.getAlumno().equals(alumno)) {
-            inscripcion = inscripciones.get(i);
-            i++;
+        Iterator<Inscripcion> it = inscripciones.iterator();
+
+        Inscripcion inscripcionActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
+
+        while (inscripcionActual != null && !inscripcionActual.getAlumno().equals(alumno)) {
+            inscripcionActual = it.hasNext() ? it.next() : null; // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
         }
-        if(i < inscripciones.size()){
-            inscripcion.marcaAsistencia();
+
+        if (inscripcionActual != null && inscripcionActual.getAlumno().equals(alumno)) { // lo encontramos?
+            inscripcionActual.marcaAsistencia();
+        } else {
+            System.out.println("El alumno no se encuentra inscripto en la asignatura.");
         }
     }
 

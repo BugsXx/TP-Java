@@ -17,6 +17,7 @@ public abstract class Inscripcion{
         else return "Libre";
     }
 
+
     public abstract boolean Promociona();
     public  abstract boolean Habilita();
 
