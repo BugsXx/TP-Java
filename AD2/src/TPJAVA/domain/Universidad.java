@@ -33,8 +33,6 @@ public class Universidad {
                     if(inscripcionActual.Condicion().equals("Libre")){
                         inscripcionActual.getAlumno().muestra();
                         System.out.println("%n");
-
-                        
                     }
                     inscripcionActual = itAsig.hasNext() ? itAsig.next() : null;
                 }
