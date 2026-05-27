@@ -27,7 +27,7 @@ public class Alumno {
     }
 
     public void muestra(){
-        System.out.printf("%s%n%s%n%s%n", nombreYApellido, matricula, fechaNacimiento);
+        System.out.printf("Nombre y Apellido: %s%n\n\tMatricula: %s%n\n\tFecha de Nacimiento: %s%n\n", nombreYApellido, matricula, fechaNacimiento);
 
     }
 

@@ -34,5 +34,10 @@ public class Clase extends Asignatura { // CLASE DE X DIA, NO UN TURNO
         }
     }
 
+    @Override
+
+    public void muestra(){
+    }
+
 }
 

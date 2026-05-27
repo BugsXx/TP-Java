@@ -95,16 +95,7 @@ public class Asignatura {
 
 
     public void muestra(){
-        Iterator<Inscripcion> it = inscripciones.iterator();
-
-        Inscripcion inscripcionActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
-
-        System.out.println("Detalle de la catedra " + nombre + "%n");
-        while (inscripcionActual != null) {
-            inscripcionActual.getAlumno().muestra();
-
-            inscripcionActual = it.hasNext() ? it.next() : null; // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
-        }
+        //?????????
 
     }
     // agregar mas metodos

@@ -5,6 +5,7 @@ import TPJAVA.domain.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.Clase;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public abstract class Inscripcion{
@@ -59,6 +60,16 @@ public abstract class Inscripcion{
     }
 
     public void muestraClases(){
+        Iterator<Clase> it = clasesAsistidas.iterator();
+        Clase claseActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
+        System.out.println("Lista de clases:");
+        while (claseActual != null) {
+
+            System.out.println("\tID de la clase: " + claseActual.getId());
+            System.out.println("\tFecha y hora de dictado de la clase: " + claseActual.getFechaYHoraDictado());
+
+            claseActual = it.hasNext() ? it.next() : null; // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
+        }
 
     }
     //agregar metodos
