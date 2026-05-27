@@ -1,5 +1,8 @@
-package TPJAVA.domain;
+package TPJAVA.domain.inscripciones;
 // CLASE BASE, HACER SUBCLASE DE TIPOS DE INSCRIPCION (REGULAR, CONDICIONAL Y OYENTE)
+
+import TPJAVA.domain.Alumno;
+import TPJAVA.domain.Asignatura;
 
 public abstract class Inscripcion{
 

@@ -1,6 +1,9 @@
-package TPJAVA.domain;
+package TPJAVA.domain.inscripciones;
 
-public class InscripcionOyente extends Inscripcion{
+import TPJAVA.domain.Alumno;
+import TPJAVA.domain.Asignatura;
+
+public class InscripcionOyente extends Inscripcion {
 
     //agregar posibles metodos
     InscripcionOyente(Asignatura asignatura, Alumno alumno){
