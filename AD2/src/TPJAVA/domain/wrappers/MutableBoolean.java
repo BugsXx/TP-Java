@@ -8,4 +8,8 @@ public class MutableBoolean {
     public boolean equals(boolean valor) {
         return this.valor == valor;
     }
+
+    public MutableBoolean(boolean valor){
+        this.valor = valor;
+    }
 }

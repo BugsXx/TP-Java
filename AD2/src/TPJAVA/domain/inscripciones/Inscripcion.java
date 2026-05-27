@@ -2,7 +2,7 @@ package TPJAVA.domain.inscripciones;
 // CLASE BASE, HACER SUBCLASE DE TIPOS DE INSCRIPCION (REGULAR, CONDICIONAL Y OYENTE)
 
 import TPJAVA.domain.Alumno;
-import TPJAVA.domain.Asignatura;
+import TPJAVA.domain.asignaturas.Asignatura;
 
 public abstract class Inscripcion{
 
@@ -10,7 +10,7 @@ public abstract class Inscripcion{
     private Alumno alumno;
     private int asistencias;
 
-    Inscripcion(Asignatura asignatura, Alumno alumno){
+    public Inscripcion(Asignatura asignatura, Alumno alumno){
         this.asignatura = asignatura;
         this.alumno = alumno;
         asistencias = 0;

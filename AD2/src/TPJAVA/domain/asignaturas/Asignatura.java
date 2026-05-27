@@ -1,6 +1,7 @@
-package TPJAVA.domain;
+package TPJAVA.domain.asignaturas;
 
 
+import TPJAVA.domain.Alumno;
 import TPJAVA.domain.inscripciones.Inscripcion;
 import TPJAVA.domain.wrappers.MutableBoolean;
 
@@ -10,7 +11,7 @@ import java.util.LinkedList;
 public class Asignatura {
 
     private LinkedList<Inscripcion> inscripciones; // inscriptos, pueden ser condicional, oyente o regular
-    private  LinkedList<Clase> clases; // preguntar al profe
+    private  LinkedList<Clase> clases; //preguntar al profe, capaz conviene hacer una clase CALENDARIO que contenga est
     private String cod;
     private String nombre;
     private int cuatrimestre; // DE 1 A 10
@@ -79,7 +80,7 @@ public class Asignatura {
         }
     }
 
-    Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales){
+    public Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales){
         clases = new LinkedList<>();
         inscripciones = new LinkedList<>();
         this.cod = cod;

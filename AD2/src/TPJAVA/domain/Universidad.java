@@ -1,5 +1,6 @@
 package TPJAVA.domain;
 
+import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.inscripciones.Inscripcion;
 
 import java.util.Iterator;
