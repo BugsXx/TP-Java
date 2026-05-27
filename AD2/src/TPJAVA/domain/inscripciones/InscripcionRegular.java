@@ -1,12 +1,12 @@
 package TPJAVA.domain.inscripciones;
 
 import TPJAVA.domain.Alumno;
-import TPJAVA.domain.Asignatura;
+import TPJAVA.domain.asignaturas.Asignatura;
 
 public class InscripcionRegular extends Inscripcion {
     //agregar posibles metodos
 
-    InscripcionRegular(Asignatura asignatura, Alumno alumno){
+    public InscripcionRegular(Asignatura asignatura, Alumno alumno){
         super(asignatura, alumno);
     }
     @Override
