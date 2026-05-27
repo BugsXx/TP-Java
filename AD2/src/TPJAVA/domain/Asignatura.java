@@ -1,6 +1,8 @@
 package TPJAVA.domain;
 
 
+import TPJAVA.domain.inscripciones.Inscripcion;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 

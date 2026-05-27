@@ -1,5 +1,7 @@
 package TPJAVA.domain;
 
+import TPJAVA.domain.inscripciones.Inscripcion;
+
 import java.util.LinkedList;
 
 public class Alumno {
