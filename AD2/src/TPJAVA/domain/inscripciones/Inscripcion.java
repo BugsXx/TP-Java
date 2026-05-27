@@ -35,6 +35,9 @@ public abstract class Inscripcion{
     public abstract boolean Promociona();
     public  abstract boolean Habilita();
 
+    public abstract String Modalidad();
+
+
     public Asignatura getAsignatura(){
         return asignatura;
     }
@@ -46,9 +49,17 @@ public abstract class Inscripcion{
         return  alumno;
     }
 
+    public LinkedList<Clase> getClasesAsistidas(){
+        return clasesAsistidas;
+    }
+
     public void marcaAsistencia(Clase clase){
         asistencias++;
         clasesAsistidas.add(clase);
+    }
+
+    public void muestraClases(){
+
     }
     //agregar metodos
 

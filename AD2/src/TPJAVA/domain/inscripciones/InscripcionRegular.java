@@ -30,4 +30,7 @@ public class InscripcionRegular extends Inscripcion {
         }else return (((double) getAsistencias() / asignatura.getClasesTotales()) >= 0.75); // si no, se habilita con el 75%
 
     }
+    public String Modalidad(){
+        return "Regular";
+    }
 }

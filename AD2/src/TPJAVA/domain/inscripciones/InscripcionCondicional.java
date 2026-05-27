@@ -31,4 +31,8 @@ public class InscripcionCondicional extends Inscripcion {
             }else return (((double) getAsistencias() / asignatura.getClasesTotales()) >= 0.95); // si no, se habilita con el 95%
 
     }
+
+    public String Modalidad(){
+        return "Condicional";
+    }
 }

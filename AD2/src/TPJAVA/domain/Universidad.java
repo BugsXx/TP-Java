@@ -42,7 +42,37 @@ public class Universidad {
             }
             AsignaturaActual = it.hasNext() ? it.next() : null; // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
         }
+    }
 
+    public void detalleCatedra(String cod){
+        Iterator<Asignatura> it = asignaturas.iterator();
 
+        Asignatura asignaturaActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
+
+        while (asignaturaActual != null && !asignaturaActual.getCod().equals(cod)) {
+            asignaturaActual = it.hasNext() ? it.next() : null; // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
+        }
+
+        if (asignaturaActual != null) { // lo encontramos?
+            Iterator<Inscripcion> itAsig = asignaturaActual.getInscripciones().iterator();
+
+            Inscripcion inscripcionActual = itAsig.hasNext() ? itAsig.next(): null;
+
+            while(inscripcionActual != null){ // listamos todos los alumnos con sus clases asistidas
+                System.out.println("Datos del alumno:%n");
+                System.out.printf("%t");
+                inscripcionActual.getAlumno().muestra();
+                inscripcionActual.muestraClases();
+
+                // mostrar la asistencia final sobre el total de la cursada
+
+                System.out.println("%tModalidad: " + inscripcionActual.Modalidad());
+                System.out.println("%tCondicion Academica: " + inscripcionActual.Condicion());
+
+                inscripcionActual = itAsig.hasNext() ? itAsig.next() : null;
+            }
+        } else {
+            System.out.println("La asignatura no existe");
+        }
     }
 }

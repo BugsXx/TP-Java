@@ -11,14 +11,15 @@ import java.util.LinkedList;
 public class Asignatura {
 
     private LinkedList<Inscripcion> inscripciones; // inscriptos, pueden ser condicional, oyente o regular
-    private  LinkedList<Clase> clases; //preguntar al profe, capaz conviene hacer una clase CALENDARIO que contenga est
+    private  LinkedList<Clase> clases; //preguntar al profe, necesario? capaz conviene hacer una clase CALENDARIO que contenga esto y este dentro
+    private int clasesTotales;
     private String cod;
     private String nombre;
     private int cuatrimestre; // DE 1 A 10
     private boolean promocionable;
     private char tipo;
 
-    private int clasesTotales;
+
 
     public int getClasesTotales(){
         return clasesTotales;
@@ -92,6 +93,20 @@ public class Asignatura {
     }
     // agregar metodo abstracto para inscribirse (agregar nodo en la lista dado un alumno como objeto parametro)
 
+
+    public void muestra(){
+        Iterator<Inscripcion> it = inscripciones.iterator();
+
+        Inscripcion inscripcionActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
+
+        System.out.println("Detalle de la catedra " + nombre + "%n");
+        while (inscripcionActual != null) {
+            inscripcionActual.getAlumno().muestra();
+
+            inscripcionActual = it.hasNext() ? it.next() : null; // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
+        }
+
+    }
     // agregar mas metodos
 
 

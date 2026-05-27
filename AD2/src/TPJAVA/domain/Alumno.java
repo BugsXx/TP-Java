@@ -2,10 +2,13 @@ package TPJAVA.domain;
 
 import TPJAVA.domain.inscripciones.Inscripcion;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Alumno {
     private LinkedList<Inscripcion> inscripciones;
+
+
 
     private String nombreYApellido;
 
@@ -27,6 +30,7 @@ public class Alumno {
         System.out.printf("%s%n%s%n%s%n", nombreYApellido, matricula, fechaNacimiento);
 
     }
+
 
     Alumno(String matricula, String nombreYApellido, String fechaNacimiento){
         this.matricula = matricula;

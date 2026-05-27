@@ -17,6 +17,10 @@ public class InscripcionOyente extends Inscripcion {
         return false;
     }
 
+    public String Modalidad(){
+        return "Oyente";
+    }
+
     public String Condicion(){
         return "Oyente";
     }
