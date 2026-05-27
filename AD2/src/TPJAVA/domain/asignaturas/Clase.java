@@ -28,7 +28,7 @@ public class Clase extends Asignatura { // CLASE DE X DIA, NO UN TURNO
     }
     public void tomaAsistencia(Alumno alumno){
         MutableBoolean result = new MutableBoolean(false);
-        cargaAsistencia(alumno, result); // si esta inscripto, aumenta 1 a la asistencia de la lista de asignatura y devuelve true en result
+        cargaAsistencia(alumno, this, result); // si esta inscripto, aumenta 1 a la asistencia de la lista de asignatura, agrega la clase a la lista de clases asistidas y devuelve true en result
         if(result.equals(true)){ // si esta inscripto
             asistencia.add(alumno); // agregamos a la lista de asistencia
         }

@@ -3,14 +3,20 @@ package TPJAVA.domain.inscripciones;
 
 import TPJAVA.domain.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
+import TPJAVA.domain.asignaturas.Clase;
+
+import java.util.LinkedList;
 
 public abstract class Inscripcion{
 
     private Asignatura asignatura;
     private Alumno alumno;
+
+    private LinkedList<Clase> clasesAsistidas;
     private int asistencias;
 
     public Inscripcion(Asignatura asignatura, Alumno alumno){
+        clasesAsistidas = new LinkedList<>();
         this.asignatura = asignatura;
         this.alumno = alumno;
         asistencias = 0;
@@ -40,8 +46,9 @@ public abstract class Inscripcion{
         return  alumno;
     }
 
-    public void marcaAsistencia(){
+    public void marcaAsistencia(Clase clase){
         asistencias++;
+        clasesAsistidas.add(clase);
     }
     //agregar metodos
 

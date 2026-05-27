@@ -63,7 +63,7 @@ public class Asignatura {
 
     }
 
-    public void cargaAsistencia(Alumno alumno, MutableBoolean result) {
+    public void cargaAsistencia(Alumno alumno, Clase clase, MutableBoolean result) {
         Iterator<Inscripcion> it = inscripciones.iterator();
 
         Inscripcion inscripcionActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
@@ -73,7 +73,7 @@ public class Asignatura {
         }
 
         if (inscripcionActual != null) { // lo encontramos?
-            inscripcionActual.marcaAsistencia();
+            inscripcionActual.marcaAsistencia(clase);
             result.SetTrue();
         } else {
             System.out.println("El alumno no se encuentra inscripto en la asignatura.");
