@@ -1,6 +1,6 @@
-package TPJAVA.domain;
+package TPJAVA.domain.wrappers;
 
-class MutableBoolean {
+public class MutableBoolean {
     public boolean valor;
     public void SetTrue() { this.valor = true; }
     public void SetFalse() { this.valor = false; }

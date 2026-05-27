@@ -16,4 +16,8 @@ public class InscripcionOyente extends Inscripcion {
     public boolean Habilita(){ // el oyente no puede habilitar
         return false;
     }
+
+    public String Condicion(){
+        return "Oyente";
+    }
 }

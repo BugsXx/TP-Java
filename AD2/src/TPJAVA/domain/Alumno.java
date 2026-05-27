@@ -7,6 +7,9 @@ import java.util.LinkedList;
 public class Alumno {
     private LinkedList<Inscripcion> inscripciones;
 
+    private String nombreYApellido;
+
+    private String fechaNacimiento;
     private String matricula;
 
     //agregar posibles metodos
@@ -20,8 +23,15 @@ public class Alumno {
         return obj.getMatricula().equals(getMatricula());
     }
 
-    Alumno(String matricula){
+    public void muestra(){
+        System.out.printf("%s%n%s%n%s%n", nombreYApellido, matricula, fechaNacimiento);
+
+    }
+
+    Alumno(String matricula, String nombreYApellido, String fechaNacimiento){
         this.matricula = matricula;
         inscripciones = new LinkedList<>();
+        this.nombreYApellido = nombreYApellido;
+        this.fechaNacimiento = fechaNacimiento;
     }
 }

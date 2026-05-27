@@ -1,6 +1,8 @@
 package TPJAVA.domain;
 
 
+import TPJAVA.domain.wrappers.MutableBoolean;
+
 import java.util.LinkedList;
 
 public class Clase extends Asignatura{ // CLASE DE X DIA, NO UN TURNO

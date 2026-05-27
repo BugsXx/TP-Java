@@ -2,6 +2,7 @@ package TPJAVA.domain;
 
 
 import TPJAVA.domain.inscripciones.Inscripcion;
+import TPJAVA.domain.wrappers.MutableBoolean;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,6 +10,7 @@ import java.util.LinkedList;
 public class Asignatura {
 
     private LinkedList<Inscripcion> inscripciones; // inscriptos, pueden ser condicional, oyente o regular
+    private  LinkedList<Clase> clases; // preguntar al profe
     private String cod;
     private String nombre;
     private int cuatrimestre; // DE 1 A 10
@@ -44,7 +46,9 @@ public class Asignatura {
         return nombre;
     }
 
-
+    public LinkedList<Inscripcion> getInscripciones(){
+        return inscripciones;
+    }
     public boolean estaInscripto(Alumno alumno){
         Iterator<Inscripcion> it = inscripciones.iterator();
 
@@ -76,6 +80,7 @@ public class Asignatura {
     }
 
     Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales){
+        clases = new LinkedList<>();
         inscripciones = new LinkedList<>();
         this.cod = cod;
         this.nombre = nombre;
