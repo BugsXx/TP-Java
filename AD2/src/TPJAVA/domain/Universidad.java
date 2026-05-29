@@ -65,6 +65,7 @@ public class Universidad {
 
                 System.out.printf("\t");
                 inscripcionActual.muestraClases();
+                
 
                 System.out.println("\tPorcentaje de asistencia: "+ inscripcionActual.getAsistencias()/asignaturaActual.getClasesTotales() * 100);
                 System.out.println("\tModalidad: " + inscripcionActual.Modalidad());
