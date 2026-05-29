@@ -66,14 +66,13 @@ public class Universidad { //CLASE CONTROLADORA UNIVERSIDAD
                 inscripcionActual.muestraClases();
                 
 
-                System.out.println("\tPorcentaje de asistencia: "+ inscripcionActual.getAsistencias()/asignaturaActual.getClasesTotales() * 100);
+                System.out.println("\tPorcentaje de asistencia: " + inscripcionActual.getAsistencias()/asignaturaActual.getClasesTotales() * 100);
                 System.out.println("\tModalidad: " + inscripcionActual.Modalidad());
                 System.out.println("\tCondicion Academica: " + inscripcionActual.Condicion());
 
                 inscripcionActual = itAsig.hasNext() ? itAsig.next() : null;
             }
-        } else {
+        } else
             System.out.println("La asignatura no existe");
-        }
     }
 }
