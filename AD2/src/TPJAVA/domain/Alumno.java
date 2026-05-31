@@ -4,15 +4,12 @@ import TPJAVA.domain.inscripciones.Inscripcion;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
-public class Alumno {
-    private LinkedList<Inscripcion> inscripciones;
+public class Alumno extends Persona{
+    private List<Inscripcion> inscripciones;
 
 
-
-    private String nombreYApellido;
-
-    private String fechaNacimiento;
     private String matricula;
 
     //agregar posibles metodos
@@ -27,15 +24,15 @@ public class Alumno {
     }
 
     public void muestra(){
-        System.out.printf("Nombre y Apellido: %s%n\n\tMatricula: %s%n\n\tFecha de Nacimiento: %s%n\n", nombreYApellido, matricula, fechaNacimiento);
+        System.out.printf("Nombre y Apellido: %s%n\n\tMatricula: %s%n\n\tFecha de Nacimiento: %s%n\n", getNombreYApellido(), matricula, getFechaNacimiento());
 
     }
 
 
     Alumno(String matricula, String nombreYApellido, String fechaNacimiento){
+        super(nombreYApellido,fechaNacimiento);
         this.matricula = matricula;
         inscripciones = new LinkedList<>();
-        this.nombreYApellido = nombreYApellido;
-        this.fechaNacimiento = fechaNacimiento;
+
     }
 }

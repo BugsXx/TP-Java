@@ -15,6 +15,7 @@ public class Universidad { //CLASE CONTROLADORA UNIVERSIDAD
     private LinkedList<Asignatura> asignaturas; //LISTA DE ASIGNATRAS
 
     Universidad(){
+
         asignaturas = new LinkedList<>();
     } //CONSTRUCTOR DE CLASE Universidad
     public void agregarAsignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales){
