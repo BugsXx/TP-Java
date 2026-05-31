@@ -2,16 +2,18 @@ package TPJAVA.domain.asignaturas;
 
 
 import TPJAVA.domain.Alumno;
+import TPJAVA.domain.Universidad;
 import TPJAVA.domain.inscripciones.Inscripcion;
 import TPJAVA.domain.wrappers.MutableBoolean;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
-public class Asignatura {
+public class Asignatura implements Comparable<Asignatura>  {
 
-    private LinkedList<Inscripcion> inscripciones; // inscriptos, pueden ser condicional, oyente o regular
-    private  LinkedList<Clase> clases; //preguntar al profe, necesario? capaz conviene hacer una clase CALENDARIO que contenga esto y este dentro
+    private List<Inscripcion> inscripciones; // inscriptos, pueden ser condicional, oyente o regular
+    private  List<Clase> clases; //preguntar al profe, necesario? capaz conviene hacer una clase CALENDARIO que contenga esto y este dentro
     private int clasesTotales;
     private String cod;
     private String nombre;
@@ -20,9 +22,8 @@ public class Asignatura {
     private char tipo;
 
 
-
     public int getClasesTotales(){
-        return clasesTotales;
+        return clases.size();
     }
 
     public char getTipo(){
@@ -48,37 +49,41 @@ public class Asignatura {
         return nombre;
     }
 
-    public LinkedList<Inscripcion> getInscripciones(){
+    public List<Inscripcion> getInscripciones(){
         return inscripciones;
     }
-    public boolean estaInscripto(Alumno alumno){
-        Iterator<Inscripcion> it = inscripciones.iterator();
 
+
+    private Inscripcion buscaInscripto(Alumno alumno){
+        Iterator<Inscripcion> it = inscripciones.iterator();
         Inscripcion inscripcionActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
 
-        while (inscripcionActual != null && !inscripcionActual.getAlumno().equals(alumno)) {
-            inscripcionActual = it.hasNext() ? it.next() : null; // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
+        while (it.hasNext() && !inscripcionActual.getAlumno().equals(alumno)) {
+            inscripcionActual = it.next(); // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
         }
+        return inscripcionActual;
+    }
+    
+    public boolean estaInscripto(Alumno alumno){
+        Inscripcion inscripcionActual = buscaInscripto(alumno);
 
-        return inscripcionActual != null; // lo encontramos?
+        return inscripcionActual != null && inscripcionActual.getAlumno().equals(alumno); // lo encontramos?
 
     }
 
-    public void cargaAsistencia(Alumno alumno, Clase clase, MutableBoolean result) {
-        Iterator<Inscripcion> it = inscripciones.iterator();
+    public String cargaAsistencia(Alumno alumno, Clase clase, MutableBoolean result) {
+        StringBuilder sb = new StringBuilder();
 
-        Inscripcion inscripcionActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
+        Inscripcion inscripcionActual = buscaInscripto(alumno);
 
-        while (inscripcionActual != null && !inscripcionActual.getAlumno().equals(alumno)) {
-            inscripcionActual = it.hasNext() ? it.next() : null; // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
-        }
-
-        if (inscripcionActual != null) { // lo encontramos?
+        if (inscripcionActual != null && inscripcionActual.getAlumno().equals(alumno)) { // lo encontramos?
             inscripcionActual.marcaAsistencia(clase);
             result.SetTrue();
         } else {
-            System.out.println("El alumno no se encuentra inscripto en la asignatura.");
+            sb.append("El alumno no se encuentra inscripto en la asignatura.");
         }
+
+        return  sb.toString();
     }
 
     public Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales){
@@ -94,11 +99,23 @@ public class Asignatura {
     // agregar metodo abstracto para inscribirse (agregar nodo en la lista dado un alumno como objeto parametro)
 
 
+    public Float calculaPresentismo(){
+        int asistenciasTotales = 0;
+        for (Inscripcion inscripcion : inscripciones) {
+            asistenciasTotales += inscripcion.getAsistencias();
+        }
+        Float presentismo = (float) asistenciasTotales / (clasesTotales * inscripciones.size()) * 100;
+        return presentismo;
+    }
+
+    @Override
+    public int compareTo(Asignatura o) {
+        return o.calculaPresentismo().compareTo(this.calculaPresentismo());
+    }
+
     public void muestra(){
         //?????????
-
     }
-    // agregar mas metodos
 
 
 }

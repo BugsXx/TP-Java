@@ -5,14 +5,16 @@ import TPJAVA.domain.Alumno;
 import TPJAVA.domain.wrappers.MutableBoolean;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Clase extends Asignatura { // CLASE DE X DIA, NO UN TURNO
 
-    private LinkedList<Alumno> asistencia; // lista de Alumnos que asistieron a la clase
+    private List<Alumno> asistencia; // lista de Alumnos que asistieron a la clase
     private String id;
     private String fechaYHoraDictado;
 
-    //agregar posibles metodos
+    private boolean presencial;
+
 
     public String getId(){
         return id;
@@ -25,6 +27,10 @@ public class Clase extends Asignatura { // CLASE DE X DIA, NO UN TURNO
         asistencia = new LinkedList<>();
         this.id = id;
         this.fechaYHoraDictado = fechaYHoraDictado;
+    }
+
+    public boolean getPresencial(){
+        return presencial;
     }
     public void tomaAsistencia(Alumno alumno){
         MutableBoolean result = new MutableBoolean(false);

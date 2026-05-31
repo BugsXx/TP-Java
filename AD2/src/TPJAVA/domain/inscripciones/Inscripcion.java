@@ -7,13 +7,14 @@ import TPJAVA.domain.asignaturas.Clase;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Inscripcion{
 
     private Asignatura asignatura;
     private Alumno alumno;
 
-    private LinkedList<Clase> clasesAsistidas;
+    private List<Clase> clasesAsistidas;
     private int asistencias;
 
     public Inscripcion(Asignatura asignatura, Alumno alumno){
@@ -50,7 +51,7 @@ public abstract class Inscripcion{
         return  alumno;
     }
 
-    public LinkedList<Clase> getClasesAsistidas(){
+    public List<Clase> getClasesAsistidas(){
         return clasesAsistidas;
     }
 
@@ -59,18 +60,22 @@ public abstract class Inscripcion{
         clasesAsistidas.add(clase);
     }
 
-    public void muestraClases(){
+
+    public String muestraClases(){
+        StringBuilder sb = new StringBuilder();
         Iterator<Clase> it = clasesAsistidas.iterator();
-        Clase claseActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
-        System.out.println("Lista de clases:");
-        while (claseActual != null) {
+        sb.append("Lista de clases:\n");
 
-            System.out.println("\tID de la clase: " + claseActual.getId());
-            System.out.println("\tFecha y hora de dictado de la clase: " + claseActual.getFechaYHoraDictado());
 
-            claseActual = it.hasNext() ? it.next() : null; // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
+        while (it.hasNext()) {
+
+            Clase claseActual = it.next();
+
+            sb.append("ID de la clase: ").append(claseActual.getId()).append("\n");
+            sb.append("Fecha y hora de dictado de la clase: ").append(claseActual.getFechaYHoraDictado()).append("\n");
+
         }
-
+        return sb.toString();
     }
     //agregar metodos
 

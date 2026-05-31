@@ -1,6 +1,6 @@
 package TPJAVA.domain.wrappers;
 
-public class MutableBoolean {
+public class MutableBoolean {   //PREGUNTAR SI SE PUEDE USAR CLASS BOOLEAN
     public boolean valor;
     public void SetTrue() { this.valor = true; }
     public void SetFalse() { this.valor = false; }

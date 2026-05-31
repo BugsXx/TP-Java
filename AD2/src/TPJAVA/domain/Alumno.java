@@ -8,8 +8,6 @@ import java.util.List;
 
 public class Alumno extends Persona{
     private List<Inscripcion> inscripciones;
-
-
     private String matricula;
 
     //agregar posibles metodos
@@ -23,9 +21,13 @@ public class Alumno extends Persona{
         return obj.getMatricula().equals(getMatricula());
     }
 
-    public void muestra(){
-        System.out.printf("Nombre y Apellido: %s%n\n\tMatricula: %s%n\n\tFecha de Nacimiento: %s%n\n", getNombreYApellido(), matricula, getFechaNacimiento());
-
+    public String muestra(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre y Apellido: %s%n").append(getNombreYApellido());
+        sb.append("\tMatricula: ");
+        sb.append(matricula).append("\n");
+        sb.append("\tFecha de Nacimiento: ").append(getFechaNacimiento()).append("\n");
+        return sb.toString();
     }
 
 
