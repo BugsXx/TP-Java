@@ -53,6 +53,17 @@ public class Asignatura implements Comparable<Asignatura>  {
         return inscripciones;
     }
 
+    public Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales){
+        clases = new LinkedList<>();
+        inscripciones = new LinkedList<>();
+        this.cod = cod;
+        this.nombre = nombre;
+        this.promocionable = promocionable;
+        this.cuatrimestre = cuatrimestre;
+        this.tipo = tipo;
+        this.clasesTotales = clasesTotales;
+    }
+
 
     private Inscripcion buscaInscripto(Alumno alumno){
         Iterator<Inscripcion> it = inscripciones.iterator();
@@ -63,7 +74,7 @@ public class Asignatura implements Comparable<Asignatura>  {
         }
         return inscripcionActual;
     }
-    
+
     public boolean estaInscripto(Alumno alumno){
         Inscripcion inscripcionActual = buscaInscripto(alumno);
 
@@ -86,19 +97,6 @@ public class Asignatura implements Comparable<Asignatura>  {
         return  sb.toString();
     }
 
-    public Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales){
-        clases = new LinkedList<>();
-        inscripciones = new LinkedList<>();
-        this.cod = cod;
-        this.nombre = nombre;
-        this.promocionable = promocionable;
-        this.cuatrimestre = cuatrimestre;
-        this.tipo = tipo;
-        this.clasesTotales = clasesTotales;
-    }
-    // agregar metodo abstracto para inscribirse (agregar nodo en la lista dado un alumno como objeto parametro)
-
-
     public Float calculaPresentismo(){
         int asistenciasTotales = 0;
         for (Inscripcion inscripcion : inscripciones) {
@@ -113,9 +111,11 @@ public class Asignatura implements Comparable<Asignatura>  {
         return o.calculaPresentismo().compareTo(this.calculaPresentismo());
     }
 
-    public void muestra(){
-        //?????????
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Asignatura)
+            return this.calculaPresentismo().equals(((Asignatura) obj).calculaPresentismo());
+        else return false;
     }
-
-
+        // agregar posible metodo abstracto para inscribirse (agregar nodo en la lista dado un alumno como objeto parametro)
 }

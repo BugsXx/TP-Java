@@ -11,7 +11,12 @@ public class Alumno extends Persona{
     private String matricula;
 
     //agregar posibles metodos
+    Alumno(String matricula, String nombreYApellido, String fechaNacimiento){
+        super(nombreYApellido,fechaNacimiento);
+        this.matricula = matricula;
+        inscripciones = new LinkedList<>();
 
+    }
 
     public String getMatricula(){
         return matricula;
@@ -30,11 +35,4 @@ public class Alumno extends Persona{
         return sb.toString();
     }
 
-
-    Alumno(String matricula, String nombreYApellido, String fechaNacimiento){
-        super(nombreYApellido,fechaNacimiento);
-        this.matricula = matricula;
-        inscripciones = new LinkedList<>();
-
-    }
 }

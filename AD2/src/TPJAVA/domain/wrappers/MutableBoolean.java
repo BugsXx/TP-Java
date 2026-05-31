@@ -5,8 +5,11 @@ public class MutableBoolean {   //PREGUNTAR SI SE PUEDE USAR CLASS BOOLEAN
     public void SetTrue() { this.valor = true; }
     public void SetFalse() { this.valor = false; }
 
-    public boolean equals(boolean valor) {
-        return this.valor == valor;
+    @Override
+    public boolean equals(Object valor) {
+        if(valor instanceof Boolean)
+            return this.valor == (boolean) valor;
+        else return false;
     }
 
     public MutableBoolean(boolean valor){
