@@ -2,10 +2,8 @@ package TPJAVA.domain.asignaturas;
 
 
 import TPJAVA.domain.Alumno;
-import TPJAVA.domain.Universidad;
-import TPJAVA.domain.asignaturas.exceptions.NoEncuentraInscripcionException;
+import TPJAVA.domain.inscripciones.exceptions.NoEncuentraInscripcionException;
 import TPJAVA.domain.inscripciones.Inscripcion;
-import TPJAVA.domain.wrappers.MutableBoolean;
 
 import java.util.Iterator;
 import java.util.LinkedList;

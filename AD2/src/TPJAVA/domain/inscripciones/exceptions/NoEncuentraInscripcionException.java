@@ -1,4 +1,4 @@
-package TPJAVA.domain.asignaturas.exceptions;
+package TPJAVA.domain.inscripciones.exceptions;
 
 import TPJAVA.domain.Alumno;
 

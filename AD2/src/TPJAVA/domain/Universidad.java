@@ -7,8 +7,7 @@ package TPJAVA.domain;
 
 import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.exceptions.NoEncuentraAsignaturaException;
-import TPJAVA.domain.asignaturas.exceptions.NoEncuentraInscripcionException;
-import TPJAVA.domain.inscripciones.Inscripcion;
+
 import java.util.Iterator;
 import java.util.TreeSet;
 
