@@ -3,6 +3,7 @@ package TPJAVA.domain.asignaturas;
 
 import TPJAVA.domain.Alumno;
 import TPJAVA.domain.Universidad;
+import TPJAVA.domain.asignaturas.exceptions.NoEncuentraInscripcionException;
 import TPJAVA.domain.inscripciones.Inscripcion;
 import TPJAVA.domain.wrappers.MutableBoolean;
 
@@ -82,16 +83,16 @@ public class Asignatura implements Comparable<Asignatura>  {
 
     }
 
-    public String cargaAsistencia(Alumno alumno, Clase clase, MutableBoolean result) {
+    public String cargaAsistencia(Alumno alumno, Clase clase) throws NoEncuentraInscripcionException {
         StringBuilder sb = new StringBuilder();
 
         Inscripcion inscripcionActual = buscaInscripto(alumno);
 
         if (inscripcionActual != null && inscripcionActual.getAlumno().equals(alumno)) { // lo encontramos?
             inscripcionActual.marcaAsistencia(clase);
-            result.SetTrue();
+
         } else {
-            sb.append("El alumno no se encuentra inscripto en la asignatura.");
+            throw new NoEncuentraInscripcionException(alumno);
         }
 
         return  sb.toString();
