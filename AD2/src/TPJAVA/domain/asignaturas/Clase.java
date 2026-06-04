@@ -38,7 +38,6 @@ public class Clase extends Asignatura { // CLASE DE X DIA, NO UN TURNO
             cargaAsistencia(alumno, this);
             asistencia.add(alumno);
         }
-        
         catch(NoEncuentraInscripcionException e){
 
         }
