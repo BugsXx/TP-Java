@@ -1,6 +1,6 @@
 package TPJAVA.domain.inscripciones.exceptions;
 
-import TPJAVA.domain.Alumno;
+import TPJAVA.domain.alumnos.Alumno;
 
 public class NoEncuentraInscripcionException extends RuntimeException {
     public NoEncuentraInscripcionException(Alumno alumno) {

@@ -1,4 +1,4 @@
-package TPJAVA.domain;
+package TPJAVA.domain.alumnos;
 
 public class Persona {
     private String nombreYApellido;

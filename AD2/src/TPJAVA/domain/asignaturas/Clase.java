@@ -1,8 +1,8 @@
 package TPJAVA.domain.asignaturas;
 
 
-import TPJAVA.domain.Alumno;
-import TPJAVA.domain.wrappers.MutableBoolean;
+import TPJAVA.domain.alumnos.Alumno;
+import TPJAVA.domain.inscripciones.exceptions.NoEncuentraInscripcionException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,10 +34,12 @@ public class Clase extends Asignatura { // CLASE DE X DIA, NO UN TURNO
     }
 
     public void tomaAsistencia(Alumno alumno){
-        MutableBoolean result = new MutableBoolean(false);
-        cargaAsistencia(alumno, this); // si esta inscripto, aumenta 1 a la asistencia de la lista de asignatura, agrega la clase a la lista de clases asistidas y devuelve true en result
-        if(result.equals(true)){ // si esta inscripto
-            asistencia.add(alumno); // agregamos a la lista de asistencia
+        try{
+            cargaAsistencia(alumno, this); 
+            asistencia.add(alumno);
+        }
+        catch(NoEncuentraInscripcionException e){
+
         }
     }
 

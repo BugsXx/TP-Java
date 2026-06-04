@@ -1,12 +1,11 @@
-package TPJAVA.domain;
+package TPJAVA.domain.alumnos;
 
 import TPJAVA.domain.inscripciones.Inscripcion;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Alumno extends Persona{
+public class Alumno extends Persona {
     private List<Inscripcion> inscripciones;
     private String matricula;
 

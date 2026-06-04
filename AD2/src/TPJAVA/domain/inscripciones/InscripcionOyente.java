@@ -1,6 +1,6 @@
 package TPJAVA.domain.inscripciones;
 
-import TPJAVA.domain.Alumno;
+import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
 
 public class InscripcionOyente extends Inscripcion {
