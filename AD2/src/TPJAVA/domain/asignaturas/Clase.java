@@ -35,9 +35,10 @@ public class Clase extends Asignatura { // CLASE DE X DIA, NO UN TURNO
 
     public void tomaAsistencia(Alumno alumno){
         try{
-            cargaAsistencia(alumno, this); 
+            cargaAsistencia(alumno, this);
             asistencia.add(alumno);
         }
+        
         catch(NoEncuentraInscripcionException e){
 
         }
