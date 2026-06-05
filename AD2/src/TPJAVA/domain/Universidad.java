@@ -16,7 +16,7 @@ public class Universidad {
     private TreeSet<Asignatura> asignaturas;
 
 
-    public static Universidad creaUniversidad(){
+    public static Universidad getUniversidad(){
         if (universidad == null)
             universidad = new Universidad();
         return  universidad;
@@ -25,11 +25,13 @@ public class Universidad {
         asignaturas = new TreeSet<>();
     }
 
-    public void agregarAsignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales){
-        Asignatura asignatura = new Asignatura(cod,nombre,promocionable,cuatrimestre,tipo, clasesTotales); //CREA OBJETO asignatura
-        asignaturas.add(asignatura); //AÑADE OBJETO asignatura A LA LISTA
+    public void agregarAsignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
+        // a desarrollar por que depende el tipo de asignatura a crear
     }
 
+    public TreeSet getAsignaturas(){
+        return asignaturas;
+    }
 
     public Asignatura encuentraAsignatura(String cod) throws NoEncuentraAsignaturaException{
         Iterator<Asignatura> it = asignaturas.iterator();

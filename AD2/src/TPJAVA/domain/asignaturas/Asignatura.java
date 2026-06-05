@@ -1,6 +1,7 @@
 package TPJAVA.domain.asignaturas;
 
 
+import TPJAVA.domain.Clase;
 import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.inscripciones.exceptions.NoEncuentraInscripcionException;
 import TPJAVA.domain.inscripciones.Inscripcion;
@@ -9,25 +10,20 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Asignatura implements Comparable<Asignatura>  {
+public abstract class Asignatura implements Comparable<Asignatura> {
 
     private List<Inscripcion> inscripciones; // inscriptos, pueden ser condicional, oyente o regular
-    private  List<Clase> clases; //preguntar al profe, necesario? capaz conviene hacer una clase CALENDARIO que contenga esto y este dentro
+    private List<Clase> clases; //preguntar al profe, necesario? capaz conviene hacer una clase CALENDARIO que contenga esto y este dentro
     private int clasesTotales;
     private String cod;
     private String nombre;
     private int cuatrimestre; // DE 1 A 10
     private boolean promocionable;
-    private char tipo;
-
 
     public int getClasesTotales(){
         return clases.size();
     }
 
-    public char getTipo(){
-        return tipo;
-    }
     public boolean getPromocionable(){
         return promocionable;
     }
@@ -52,14 +48,17 @@ public class Asignatura implements Comparable<Asignatura>  {
         return inscripciones;
     }
 
-    public Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, char tipo, int clasesTotales){
+    public abstract boolean cumpleCondicionPromocion(int asistenciasAlumno, float condicion);
+    public abstract boolean cumpleCondicionHabilita(int asistenciasAlumno, float condicion);
+
+
+    public Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
         clases = new LinkedList<>();
         inscripciones = new LinkedList<>();
         this.cod = cod;
         this.nombre = nombre;
         this.promocionable = promocionable;
         this.cuatrimestre = cuatrimestre;
-        this.tipo = tipo;
         this.clasesTotales = clasesTotales;
     }
 

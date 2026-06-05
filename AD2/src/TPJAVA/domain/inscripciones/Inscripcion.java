@@ -3,7 +3,7 @@ package TPJAVA.domain.inscripciones;
 
 import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
-import TPJAVA.domain.asignaturas.Clase;
+import TPJAVA.domain.Clase;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -13,7 +13,6 @@ public abstract class Inscripcion{
 
     private Asignatura asignatura;
     private Alumno alumno;
-
     private List<Clase> clasesAsistidas;
     private int asistencias;
 
@@ -23,6 +22,7 @@ public abstract class Inscripcion{
         this.alumno = alumno;
         asistencias = 0;
     }
+
     public String Condicion() {
         if(Promociona()){
             return "En Condiciones De Promocionar";
@@ -33,12 +33,9 @@ public abstract class Inscripcion{
         else return "Libre";
     }
 
-
     public abstract boolean Promociona();
     public  abstract boolean Habilita();
-
     public abstract String Modalidad();
-
 
     public Asignatura getAsignatura(){
         return asignatura;
@@ -46,11 +43,9 @@ public abstract class Inscripcion{
     public int getAsistencias(){
         return asistencias;
     }
-
     public Alumno getAlumno(){
         return  alumno;
     }
-
     public List<Clase> getClasesAsistidas(){
         return clasesAsistidas;
     }
@@ -61,23 +56,20 @@ public abstract class Inscripcion{
     }
 
 
-    public String muestraClases(){
+    @Override
+    public String toString(){
         StringBuilder sb = new StringBuilder();
         Iterator<Clase> it = clasesAsistidas.iterator();
         sb.append("Lista de clases:\n");
 
-
         while (it.hasNext()) {
-
             Clase claseActual = it.next();
 
             sb.append("ID de la clase: ").append(claseActual.getId()).append("\n");
             sb.append("Fecha y hora de dictado de la clase: ").append(claseActual.getFechaYHoraDictado()).append("\n");
-
         }
         return sb.toString();
     }
     //agregar metodos
-
 }
 

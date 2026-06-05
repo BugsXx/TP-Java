@@ -4,7 +4,7 @@ public class Persona {
     private String nombreYApellido;
     private String fechaNacimiento;
 
-    Persona(String nombre, String fecha){
+    public Persona(String nombre, String fecha){
         setFechaNacimiento(fecha);
         setNombreYApellido(nombre);
     }
@@ -16,6 +16,7 @@ public class Persona {
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+
     public String getFechaNacimiento() {
         return fechaNacimiento;
     }
