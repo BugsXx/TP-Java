@@ -1,5 +1,7 @@
 package TPJAVA.domain.asignaturas;
 
+import TPJAVA.domain.inscripciones.TipoMateria;
+
 public class PasantiaYTesis extends Asignatura{
 
     @Override
@@ -9,7 +11,7 @@ public class PasantiaYTesis extends Asignatura{
 
     @Override
     public boolean cumpleCondicionHabilita(int asistencias, float condicion){
-        return (((double) asistencias / getClasesTotales()) >= 0.75 * condicion);
+        return (((double) asistencias / getClasesTotales()) >= TipoMateria.PasantiaHabilita.getValor() * condicion);
     }
 
     PasantiaYTesis(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
