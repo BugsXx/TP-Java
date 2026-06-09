@@ -20,6 +20,7 @@ public abstract class Asignatura implements Comparable<Asignatura> {
     private int cuatrimestre; // DE 1 A 10
     private boolean promocionable;
 
+
     public int getClasesTotales(){
         return clases.size();
     }

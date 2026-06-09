@@ -32,6 +32,8 @@ public class Alumno extends Persona {
         }
     }
 
+
+
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();

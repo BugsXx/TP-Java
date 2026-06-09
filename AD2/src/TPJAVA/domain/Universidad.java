@@ -5,15 +5,18 @@
 
 package TPJAVA.domain;
 
+import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.exceptions.NoEncuentraAsignaturaException;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
 
 public class Universidad {
     private static Universidad universidad;
     private TreeSet<Asignatura> asignaturas;
+    private List<Alumno> alumno;
 
 
     public static Universidad getUniversidad(){

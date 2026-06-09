@@ -12,15 +12,13 @@ public class InscripcionCondicional extends Inscripcion {
     }
     @Override
     public boolean Promociona(){
-        Asignatura asignatura = getAsignatura();
-        return asignatura.cumpleCondicionHabilita(getAsistencias(), 1.2F);
+        return getAsignatura().cumpleCondicionPromocion(getAsistencias(), 1.2F);
 
     }
 
     @Override
     public boolean Habilita() {
-        Asignatura asignatura = getAsignatura();
-        return asignatura.cumpleCondicionHabilita(getAsistencias(), 1.2F);
+        return getAsignatura().cumpleCondicionHabilita(getAsistencias(), 1.2F);
     }
 
     public String Modalidad(){

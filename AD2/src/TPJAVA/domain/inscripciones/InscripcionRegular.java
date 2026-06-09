@@ -11,13 +11,11 @@ public class InscripcionRegular extends Inscripcion {
     }
     @Override
     public boolean Promociona(){
-        Asignatura asignatura = getAsignatura();
-        return asignatura.cumpleCondicionPromocion(getAsistencias(), 1);
+        return getAsignatura().cumpleCondicionPromocion(getAsistencias(), 1);
     }
     @Override
     public boolean Habilita(){
-        Asignatura asignatura = getAsignatura();
-        return asignatura.cumpleCondicionHabilita(getAsistencias(), 1);
+        return getAsignatura().cumpleCondicionHabilita(getAsistencias(), 1);
     }
     public String Modalidad(){
         return "Regular";
