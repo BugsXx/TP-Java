@@ -1,5 +1,6 @@
 package TPJAVA.domain.alumnos;
 
+import TPJAVA.domain.asignaturas.exceptions.YaInscriptoAAsignaturaException;
 import TPJAVA.domain.inscripciones.Inscripcion;
 
 import java.util.LinkedList;
@@ -14,6 +15,12 @@ public class Alumno extends Persona {
         super(nombreYApellido,fechaNacimiento);
         this.matricula = matricula;
         inscripciones = new LinkedList<>();
+    }
+
+    public void agregaInscripcion(Inscripcion inscripcion) throws YaInscriptoAAsignaturaException {
+        if(! inscripciones.contains(inscripcion))
+            inscripciones.add(inscripcion);
+        else throw new YaInscriptoAAsignaturaException("El alumno ya se encuentra inscripto en la asignatura");
     }
 
     public String getMatricula(){

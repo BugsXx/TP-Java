@@ -10,13 +10,15 @@ import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.exceptions.NoEncuentraAsignaturaException;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 
 public class Universidad {
     private static Universidad universidad;
     private TreeSet<Asignatura> asignaturas;
-    private List<Alumno> alumno;
+    private static List<Alumno> alumnos;
+    private String nombre;
 
 
     public static Universidad getUniversidad(){
@@ -24,8 +26,17 @@ public class Universidad {
             universidad = new Universidad();
         return  universidad;
     }
+
+    public static List<Alumno> getAlumnos(){
+        if (alumnos == null)
+            alumnos = new LinkedList<>();
+        return  alumnos;
+    }
+
     private Universidad(){
         asignaturas = new TreeSet<>();
+        universidad = null;
+        alumnos = null;
     }
 
     public void agregarAsignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
@@ -34,6 +45,10 @@ public class Universidad {
 
     public TreeSet getAsignaturas(){
         return asignaturas;
+    }
+
+    public void setNombre(String nombre){
+        this.nombre = nombre;
     }
 
     public Asignatura encuentraAsignatura(String cod) throws NoEncuentraAsignaturaException{

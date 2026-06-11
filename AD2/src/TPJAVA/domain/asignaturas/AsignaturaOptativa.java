@@ -11,7 +11,7 @@ public class AsignaturaOptativa extends Asignatura{
     public boolean cumpleCondicionHabilita(int asistencias, float condicion){
         return ((double) asistencias / getClasesTotales()) >= TipoMateria.OptativaHabilita.getValor() * condicion;
     }
-    AsignaturaOptativa(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
+    public AsignaturaOptativa(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
         super(cod, nombre, promocionable, cuatrimestre, clasesTotales);
     }
 }

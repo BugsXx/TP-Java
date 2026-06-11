@@ -3,6 +3,11 @@ package TPJAVA.domain.asignaturas;
 
 import TPJAVA.domain.Clase;
 import TPJAVA.domain.alumnos.Alumno;
+import TPJAVA.domain.asignaturas.exceptions.NoCumpleCondicionException;
+import TPJAVA.domain.asignaturas.exceptions.YaInscriptoAAsignaturaException;
+import TPJAVA.domain.inscripciones.InscripcionCondicional;
+import TPJAVA.domain.inscripciones.InscripcionOyente;
+import TPJAVA.domain.inscripciones.InscripcionRegular;
 import TPJAVA.domain.inscripciones.exceptions.NoEncuentraInscripcionException;
 import TPJAVA.domain.inscripciones.Inscripcion;
 
@@ -105,6 +110,27 @@ public abstract class Asignatura implements Comparable<Asignatura> {
         return presentismo;
     }
 
+    public String inscribirse(Alumno alumno, char condicion)throws NoCumpleCondicionException { // referencia a un nodo de la lista de alumnos de la universidad
+        StringBuilder sb = new StringBuilder();
+        Inscripcion nueva;
+        if (condicion == 'r'){
+            nueva = new InscripcionRegular(this, alumno);
+        }
+        else if (condicion == 'o'){
+            nueva = new InscripcionOyente(this, alumno);
+        }else if(condicion == 'c'){
+            nueva = new InscripcionCondicional(this, alumno);
+        }else throw new NoCumpleCondicionException("La condicion de inscripcion no existe");
+        try {
+            alumno.agregaInscripcion(nueva);
+            inscripciones.add(nueva);
+
+        }catch(YaInscriptoAAsignaturaException e){
+            // ver que hacer
+        }
+
+    }
+
     @Override
     public int compareTo(Asignatura o) {
         return o.calculaPresentismo().compareTo(this.calculaPresentismo());
@@ -116,5 +142,5 @@ public abstract class Asignatura implements Comparable<Asignatura> {
             return this.calculaPresentismo().equals(((Asignatura) obj).calculaPresentismo());
         else return false;
     }
-        // agregar posible metodo abstracto para inscribirse (agregar nodo en la lista dado un alumno como objeto parametro)
+
 }

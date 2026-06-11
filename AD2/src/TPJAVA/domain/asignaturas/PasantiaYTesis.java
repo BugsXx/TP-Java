@@ -14,7 +14,7 @@ public class PasantiaYTesis extends Asignatura{
         return (((double) asistencias / getClasesTotales()) >= TipoMateria.PasantiaHabilita.getValor() * condicion);
     }
 
-    PasantiaYTesis(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
+    public PasantiaYTesis(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
         super(cod, nombre, promocionable, cuatrimestre, clasesTotales);
     }
 

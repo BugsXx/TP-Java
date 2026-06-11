@@ -13,7 +13,7 @@ public class AsignaturaObligatoria extends Asignatura{
             return (((double) asistencias / getClasesTotales()) >= TipoMateria.ObligatoriaHabilita.getValor() * condicion);
 
     }
-    AsignaturaObligatoria(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
+    public AsignaturaObligatoria(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
         super(cod, nombre, promocionable, cuatrimestre, clasesTotales);
     }
 
