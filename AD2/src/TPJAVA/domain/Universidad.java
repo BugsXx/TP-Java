@@ -34,6 +34,7 @@ public class Universidad {
     }
 
     private Universidad(){
+
         asignaturas = new TreeSet<>();
         universidad = null;
         alumnos = null;

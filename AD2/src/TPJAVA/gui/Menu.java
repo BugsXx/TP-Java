@@ -1,22 +1,19 @@
 package TPJAVA.gui;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 public class Menu {
 
     public static void abreMenu(){
         JFrame ventana = new JFrame("Sistema Académico");
-        ventana.setSize(500,500);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setLocationRelativeTo(null);
         ventana.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(15, 15, 15, 15); // Márgenes entre elementos
+        gbc.insets = new Insets(15, 15, 15, 15);
         gbc.gridx = 0;
 
         // Título
@@ -47,43 +44,39 @@ public class Menu {
         gbc.gridy = 2;
         ventana.add(panelAcciones, gbc);
 
-        // LÓGICA CORREGIDA DEL BOTÓN DE CARGA
-        btnCargar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser selector = new JFileChooser();
-                int valor = selector.showOpenDialog(ventana);
+        // Lógica del botón de carga optimizada con Lambda
+        btnCargar.addActionListener(e -> {
+            JFileChooser selector = new JFileChooser();
+            selector.setFileFilter(new FileNameExtensionFilter("Archivos de Datos (*.txt, *.csv)", "txt", "csv"));
 
-                if (valor == JFileChooser.APPROVE_OPTION) {
-                    File archivoseleccionado = selector.getSelectedFile();
+            int valor = selector.showOpenDialog(ventana);
 
-                    if (archivoseleccionado != null) {
-                        // Cambiamos el texto del botón de carga para mostrar el nombre del archivo
-                        btnCargar.setText("Archivo: " + archivoseleccionado.getName());
-                        btnCargar.setEnabled(false);
+            if (valor == JFileChooser.APPROVE_OPTION) {
+                File archivoseleccionado = selector.getSelectedFile();
 
-                        // Habilitamos las opciones para el usuario
-                        panelAcciones.setVisible(true);
-                        ventana.revalidate();
-                        ventana.repaint();
-                    } else {
-                        JOptionPane.showMessageDialog(ventana, "Error: No se pudo obtener el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                if (archivoseleccionado != null) {
+                    btnCargar.setText("Archivo: " + archivoseleccionado.getName());
+                    btnCargar.setEnabled(false);
+
+                    panelAcciones.setVisible(true);
+                    ventana.pack(); // Ajusta el tamaño dinámicamente
+                    ventana.setLocationRelativeTo(null); // Mantiene centrado
+                } else {
+                    JOptionPane.showMessageDialog(ventana, "Error: No se pudo obtener el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
         // Lógica de los botones secundarios
-        btnAsistencia.addActionListener(ev -> {
-            JOptionPane.showMessageDialog(ventana, "Abriendo formulario de asistencia...");
-        });
+        btnAsistencia.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Abriendo formulario de asistencia..."));
+        btnRanking.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Generando ranking de presentismo..."));
+        btnDetalle.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Mostrando detalle de alumnos..."));
+        btnLibres.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Abriendo panel de alumnos libres..."));
 
-        btnRanking.addActionListener(ev -> {
-            JOptionPane.showMessageDialog(ventana, "Generando ranking de presentismo...");
-        });
-
-        // Hacer visible la ventana al final
+        // Pack inicial y visibilidad
+        ventana.pack();
+        ventana.setSize(500, Math.max(ventana.getHeight(), 400)); // Un tamaño inicial base elegante
+        ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
     }
 }
-
