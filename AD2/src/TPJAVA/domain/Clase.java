@@ -14,7 +14,6 @@ public class Clase { // CLASE DE X DIA, NO UN TURNO
     private String id;
     private String fechaYHoraDictado;
     private Asignatura asignatura;
-    private boolean presencial;
 
 
     public String getId(){
@@ -23,15 +22,14 @@ public class Clase { // CLASE DE X DIA, NO UN TURNO
     public String getFechaYHoraDictado(){
         return fechaYHoraDictado;
     }
-    public Clase ( String id, String fechaYHoraDictado){
+
+    public Clase ( String id, String fechaYHoraDictado, Asignatura asignatura){
+        this.asignatura = asignatura;
         asistencia = new LinkedList<>();
         this.id = id;
         this.fechaYHoraDictado = fechaYHoraDictado;
     }
 
-    public boolean getPresencial(){
-        return presencial;
-    }
 
     public void tomaAsistencia(Alumno alumno) throws NoEncuentraInscripcionException{
             asignatura.cargaAsistencia(alumno, this);

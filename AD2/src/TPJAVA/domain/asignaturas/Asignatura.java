@@ -58,6 +58,7 @@ public abstract class Asignatura implements Comparable<Asignatura> {
     public abstract boolean cumpleCondicionHabilita(int asistenciasAlumno, float condicion);
 
 
+
     public Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
         clases = new LinkedList<>();
         inscripciones = new LinkedList<>();
