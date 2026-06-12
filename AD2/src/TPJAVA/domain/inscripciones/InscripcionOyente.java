@@ -5,7 +5,6 @@ import TPJAVA.domain.asignaturas.Asignatura;
 
 public class InscripcionOyente extends Inscripcion {
 
-    //agregar posibles metodos
     public InscripcionOyente(Asignatura asignatura, Alumno alumno){
         super(asignatura, alumno);
     }
