@@ -3,11 +3,13 @@
  * METODOS QUE DEVUELVAN STRINGS. CON EL FORMATO "System.out.println(...)" SOLO PODEMOS MOSTRAR EN LA CONSOLA.
  */
 
-package TPJAVA.domain;
+package TPJAVA.domain.universidad;
 
 import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.exceptions.NoEncuentraAsignaturaException;
+import TPJAVA.domain.universidad.exceptions.AsignaturaExistenteException;
+import TPJAVA.domain.universidad.exceptions.YaEstaInscriptoElAlumnoALaUniversidadException;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -40,8 +42,11 @@ public class Universidad {
         alumnos = null;
     }
 
-    public void agregarAsignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
-        // a desarrollar por que depende el tipo de asignatura a crear
+    public void agregarAsignatura(Asignatura asignatura)throws AsignaturaExistenteException {
+        if(! asignaturas.contains(asignatura)){
+            asignaturas.add(asignatura);
+        }
+        else throw new AsignaturaExistenteException("Ya existe la asignatura en la universidad");
     }
 
     public TreeSet getAsignaturas(){
@@ -61,6 +66,13 @@ public class Universidad {
         if (asignaturaActual != null && asignaturaActual.getCod().equals(cod))
             return asignaturaActual;
         else throw new NoEncuentraAsignaturaException();
+    }
+
+
+    public void agregaAlumno(Alumno alumno)throws YaEstaInscriptoElAlumnoALaUniversidadException{
+        if(! alumnos.contains(alumno))
+            alumnos.add(alumno);
+        else throw new YaEstaInscriptoElAlumnoALaUniversidadException("El alumno ya esta inscripto en la universidad");
     }
 
 }

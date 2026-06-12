@@ -3,6 +3,7 @@ package TPJAVA.domain;
 import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.exceptions.NoEncuentraAsignaturaException;
 import TPJAVA.domain.inscripciones.Inscripcion;
+import TPJAVA.domain.universidad.Universidad;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +15,7 @@ public class Reportes {
     private Reportes(){
     }
 
-    public static void detalleCatedra(String cod) throws NoEncuentraAsignaturaException{ // luego con swing ver como mostrarlo
+    public static String detalleCatedra(String cod) throws NoEncuentraAsignaturaException{ // luego con swing ver como mostrarlo
         Universidad universidad = Universidad.getUniversidad();
         StringBuilder sb = new StringBuilder();
         Asignatura asignaturaActual = null;
@@ -34,11 +35,11 @@ public class Reportes {
             sb.append("\tModalidad: ").append(inscripcionActual.Modalidad());
             sb.append("\tCondicion Academica: ").append(inscripcionActual.Condicion());
         }
-
+        return sb.toString();
     }
 
 
-    public static void detalleCatedraLibres(String cod, int C1, int C2)throws NoEncuentraAsignaturaException{
+    public static String detalleCatedraLibres(String cod, int C1, int C2)throws NoEncuentraAsignaturaException{
         Universidad universidad = Universidad.getUniversidad();
         StringBuilder sb = new StringBuilder();
         sb.append("Detalle de los alumnos libres\n");
@@ -53,6 +54,7 @@ public class Reportes {
                         sb.append(inscripcionActual.getAlumno()).append("\n");
                 }
             }
+            return  sb.toString();
         }
 
 

@@ -33,19 +33,15 @@ public class Clase { // CLASE DE X DIA, NO UN TURNO
         return presencial;
     }
 
-    public void tomaAsistencia(Alumno alumno){
-        try{
+    public void tomaAsistencia(Alumno alumno) throws NoEncuentraInscripcionException{
             asignatura.cargaAsistencia(alumno, this);
             asistencia.add(alumno);
         }
-        catch(NoEncuentraInscripcionException e){
-            e.getMessage();
-        }
-    }
-
-
-
-
-
 }
+
+
+
+
+
+
 

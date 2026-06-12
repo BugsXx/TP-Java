@@ -5,6 +5,9 @@ import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.AsignaturaObligatoria;
 import TPJAVA.domain.asignaturas.AsignaturaOptativa;
 import TPJAVA.domain.asignaturas.PasantiaYTesis;
+import TPJAVA.domain.universidad.Universidad;
+import TPJAVA.domain.universidad.exceptions.AsignaturaExistenteException;
+import TPJAVA.domain.universidad.exceptions.YaEstaInscriptoElAlumnoALaUniversidadException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,7 +21,7 @@ import java.io.File;
 
 public class CargaDatos {
 
-    public static boolean cargarDesdeXML(File archivo) {
+    public static boolean cargarDesdeXML(File archivo) throws AsignaturaExistenteException, YaEstaInscriptoElAlumnoALaUniversidadException {
         if (archivo == null || !archivo.exists()) {
             System.err.println("Error: El archivo no existe o es nulo.");
             return false;
@@ -74,7 +77,7 @@ public class CargaDatos {
 
                     // Guardar la subclase en la lista genérica de la Universidad
                     if (asig != null) {
-                        uni.agregarAsignatura(cod, nombre, promocionable, cuatrimestre, clasesTotales);
+                        uni.agregarAsignatura(asig);
                     }
                 }
             }
@@ -92,7 +95,7 @@ public class CargaDatos {
                     String fechaNacimiento = elemento.getAttribute("fechaNacimiento");
 
                     Alumno alu = new Alumno(matricula, nombreYApellido, fechaNacimiento);
-                    uni.AgregaAlumon(matricula, nombreYApellido, fechaNacimiento);
+                    uni.agregaAlumno(alu);
                 }
             }
 

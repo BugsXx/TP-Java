@@ -1,5 +1,4 @@
 package TPJAVA.domain.inscripciones;
-// CLASE BASE, HACER SUBCLASE DE TIPOS DE INSCRIPCION (REGULAR, CONDICIONAL Y OYENTE)
 
 import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
@@ -70,6 +69,12 @@ public abstract class Inscripcion{
         }
         return sb.toString();
     }
-    //agregar metodos
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Inscripcion)
+            return ((Inscripcion) obj).asignatura == this.asignatura && ((Inscripcion) obj).alumno == this.alumno;
+        else  return false;
+    }
 }
 

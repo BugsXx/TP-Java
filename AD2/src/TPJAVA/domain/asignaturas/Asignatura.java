@@ -86,8 +86,7 @@ public abstract class Asignatura implements Comparable<Asignatura> {
 
     }
 
-    public String cargaAsistencia(Alumno alumno, Clase clase) throws NoEncuentraInscripcionException {
-        StringBuilder sb = new StringBuilder();
+    public void cargaAsistencia(Alumno alumno, Clase clase) throws NoEncuentraInscripcionException {
 
         Inscripcion inscripcionActual = buscaInscripto(alumno);
 
@@ -98,7 +97,6 @@ public abstract class Asignatura implements Comparable<Asignatura> {
             throw new NoEncuentraInscripcionException(alumno);
         }
 
-        return  sb.toString();
     }
 
     public Float calculaPresentismo(){
@@ -110,8 +108,7 @@ public abstract class Asignatura implements Comparable<Asignatura> {
         return presentismo;
     }
 
-    public String inscribirse(Alumno alumno, char condicion)throws NoCumpleCondicionException { // referencia a un nodo de la lista de alumnos de la universidad
-        StringBuilder sb = new StringBuilder();
+    public void inscribirse(Alumno alumno, char condicion)throws NoCumpleCondicionException, YaInscriptoAAsignaturaException { // referencia a un nodo de la lista de alumnos de la universidad
         Inscripcion nueva;
         if (condicion == 'r'){
             nueva = new InscripcionRegular(this, alumno);
@@ -121,13 +118,9 @@ public abstract class Asignatura implements Comparable<Asignatura> {
         }else if(condicion == 'c'){
             nueva = new InscripcionCondicional(this, alumno);
         }else throw new NoCumpleCondicionException("La condicion de inscripcion no existe");
-        try {
-            alumno.agregaInscripcion(nueva);
-            inscripciones.add(nueva);
 
-        }catch(YaInscriptoAAsignaturaException e){
-            // ver que hacer
-        }
+        alumno.agregaInscripcion(nueva);
+        inscripciones.add(nueva);
 
     }
 
@@ -139,7 +132,7 @@ public abstract class Asignatura implements Comparable<Asignatura> {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Asignatura)
-            return this.calculaPresentismo().equals(((Asignatura) obj).calculaPresentismo());
+            return ((Asignatura) obj).getCod() == this.cod;
         else return false;
     }
 

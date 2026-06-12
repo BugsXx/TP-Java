@@ -27,17 +27,6 @@ public class Alumno extends Persona {
         return matricula;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(this==obj)
-            return true;
-        else if (obj == null || getClass() != obj.getClass())
-            return false;
-        else{
-            Alumno alumno = (Alumno)obj;
-            return this.matricula.equals(alumno.matricula);
-        }
-    }
 
 
 
@@ -48,5 +37,12 @@ public class Alumno extends Persona {
         sb.append("\tMatricula: ").append(matricula).append("\n");
         sb.append("\tFecha de Nacimiento: ").append(getFechaNacimiento()).append("\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Alumno)
+            return ((Alumno) obj).getNombreYApellido().equals(this.getNombreYApellido()) && ((Alumno) obj).getFechaNacimiento().equals(this.getFechaNacimiento());
+        else  return false;
     }
 }
