@@ -1,8 +1,9 @@
-package TPJAVA.domain;
+package TPJAVA.domain.clase;
 
 
 import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
+import TPJAVA.domain.clase.exceptions.AlumnoConPresenteException;
 import TPJAVA.domain.inscripciones.exceptions.NoEncuentraInscripcionException;
 
 import java.util.LinkedList;
@@ -31,10 +32,12 @@ public class Clase { // CLASE DE X DIA, NO UN TURNO
     }
 
 
-    public void tomaAsistencia(Alumno alumno) throws NoEncuentraInscripcionException{
-            asignatura.cargaAsistencia(alumno, this);
-            asistencia.add(alumno);
-        }
+    public void tomaAsistencia(Alumno alumno) throws NoEncuentraInscripcionException, AlumnoConPresenteException{
+        asignatura.cargaAsistencia(alumno, this);
+        if(!asistencia.contains(alumno))
+            throw new AlumnoConPresenteException("El alumno ya tiene el presente");
+        asistencia.add(alumno);
+    }
 }
 
 

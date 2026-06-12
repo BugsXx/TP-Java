@@ -1,8 +1,9 @@
 package TPJAVA.domain.asignaturas;
 
 
-import TPJAVA.domain.Clase;
+import TPJAVA.domain.clase.Clase;
 import TPJAVA.domain.alumnos.Alumno;
+import TPJAVA.domain.asignaturas.exceptions.ClaseExistenteException;
 import TPJAVA.domain.asignaturas.exceptions.NoCumpleCondicionException;
 import TPJAVA.domain.asignaturas.exceptions.YaInscriptoAAsignaturaException;
 import TPJAVA.domain.inscripciones.InscripcionCondicional;
@@ -80,13 +81,6 @@ public abstract class Asignatura implements Comparable<Asignatura> {
         return inscripcionActual;
     }
 
-    public boolean estaInscripto(Alumno alumno){
-        Inscripcion inscripcionActual = buscaInscripto(alumno);
-
-        return inscripcionActual != null && inscripcionActual.getAlumno().equals(alumno); // lo encontramos?
-
-    }
-
     public void cargaAsistencia(Alumno alumno, Clase clase) throws NoEncuentraInscripcionException {
 
         Inscripcion inscripcionActual = buscaInscripto(alumno);
@@ -123,6 +117,12 @@ public abstract class Asignatura implements Comparable<Asignatura> {
         alumno.agregaInscripcion(nueva);
         inscripciones.add(nueva);
 
+    }
+
+    public void creaClase(Clase clase) throws ClaseExistenteException {
+        if(clases.contains(clase))
+            clases.add(clase);
+        else throw new ClaseExistenteException("Ya existe la clase");
     }
 
     @Override

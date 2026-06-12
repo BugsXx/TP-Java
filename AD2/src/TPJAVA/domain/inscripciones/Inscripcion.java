@@ -2,7 +2,7 @@ package TPJAVA.domain.inscripciones;
 
 import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
-import TPJAVA.domain.Clase;
+import TPJAVA.domain.clase.Clase;
 
 import java.util.Iterator;
 import java.util.LinkedList;
