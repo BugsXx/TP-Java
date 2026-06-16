@@ -1,4 +1,4 @@
-package TPJAVA.domain;
+package TPJAVA.domain.reportes;
 
 import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.exceptions.NoEncuentraAsignaturaException;

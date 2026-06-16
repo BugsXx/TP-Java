@@ -1,4 +1,4 @@
-package TPJAVA.domain;
+package TPJAVA.domain.persistencia;
 
 import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
