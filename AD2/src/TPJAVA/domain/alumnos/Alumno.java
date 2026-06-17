@@ -10,7 +10,6 @@ public class Alumno extends Persona implements Comparable<Alumno> {
     private List<Inscripcion> inscripciones;
     private String matricula;
 
-    //agregar posibles metodos
     public Alumno(String matricula, String nombreYApellido, String fechaNacimiento){
         super(nombreYApellido,fechaNacimiento);
         this.matricula = matricula;

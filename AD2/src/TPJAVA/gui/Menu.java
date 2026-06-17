@@ -102,7 +102,7 @@ public class Menu {
         );
 
         Integer anio = null;
-        if (seleccion >= 0 && seleccion <= 4) { // Si eligió Año 1 a 5
+        if (seleccion >= 0 && seleccion <= 4) {
             anio = seleccion + 1;
         }
 
