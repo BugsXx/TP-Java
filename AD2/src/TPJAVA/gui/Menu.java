@@ -26,19 +26,13 @@ public class Menu {
         gbc.insets = new Insets(15, 15, 15, 15);
         gbc.gridx = 0;
 
-        // Título
+        // Titulo
         JLabel lblTitulo = new JLabel("SISTEMA ACADÉMICO", JLabel.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 22));
         gbc.gridy = 0;
         ventana.add(lblTitulo, gbc);
 
-        // Botón Cargar
-        JButton btnCargar = new JButton("Cargar Archivo de Datos");
-        btnCargar.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridy = 1;
-        ventana.add(btnCargar, gbc);
-
-        // Panel de Acciones (Oculto inicialmente)
+        // Panel de Acciones (Visible desde el inicio)
         JPanel panelAcciones = new JPanel(new GridLayout(4, 1, 10, 10));
         JButton btnAsistencia = new JButton("Registrar Asistencia");
         JButton btnRanking = new JButton("Ver Ranking de Asignaturas");
@@ -49,35 +43,11 @@ public class Menu {
         panelAcciones.add(btnRanking);
         panelAcciones.add(btnDetalle);
         panelAcciones.add(btnLibres);
-        panelAcciones.setVisible(false);
-
-        gbc.gridy = 2;
+        panelAcciones.setVisible(true);
+        gbc.gridy = 1;
         ventana.add(panelAcciones, gbc);
 
-        // Lógica del botón de carga optimizada con Lambda
-        btnCargar.addActionListener(e -> {
-            JFileChooser selector = new JFileChooser();
-            selector.setFileFilter(new FileNameExtensionFilter("Archivos de Datos (*.txt, *.csv)", "txt", "csv"));
-
-            int valor = selector.showOpenDialog(ventana);
-
-            if (valor == JFileChooser.APPROVE_OPTION) {
-                File archivoseleccionado = selector.getSelectedFile();
-
-                if (archivoseleccionado != null) {
-                    btnCargar.setText("Archivo: " + archivoseleccionado.getName());
-                    btnCargar.setEnabled(false);
-
-                    panelAcciones.setVisible(true);
-                    ventana.pack(); // Ajusta el tamaño dinámicamente
-                    ventana.setLocationRelativeTo(null); // Mantiene centrado
-                } else {
-                    JOptionPane.showMessageDialog(ventana, "Error: No se pudo obtener el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-
-        // Lógica de los botones secundarios
+        // Lógica de los botones
         btnAsistencia.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Abriendo formulario de asistencia..."));
         btnRanking.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Generando ranking de presentismo..."));
         btnDetalle.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Mostrando detalle de alumnos..."));
@@ -85,7 +55,7 @@ public class Menu {
 
         // Pack inicial y visibilidad
         ventana.pack();
-        ventana.setSize(500, Math.max(ventana.getHeight(), 400)); // Un tamaño inicial base elegante
+        ventana.setSize(400, 350); // Ajustado a un tamaño más compacto al quitar el botón
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
     }
