@@ -22,18 +22,18 @@ import java.io.File;
 
 public class CargaDatos {
 
-    public static void cargarDatos()throws NoExisteElArchivoException, AsignaturaExistenteException, org.xml.sax.SAXException, java.io.IOException, YaEstaInscriptoElAlumnoALaUniversidadException,javax.xml.parsers.ParserConfigurationException{
-        File archivoUni = new File("Universidad.dat");
-        File archivoAlumnos = new File("Alumnos.dat");
-        if (archivoUni == null || !archivoUni.exists()) {
+    public static void cargarDatos()throws  java.lang.ClassNotFoundException, NoExisteElArchivoException, AsignaturaExistenteException, org.xml.sax.SAXException, java.io.IOException, YaEstaInscriptoElAlumnoALaUniversidadException,javax.xml.parsers.ParserConfigurationException{
+        try{
+            Persistencia.cargarUniversidad();
+
+        }catch(NoExisteElArchivoException e){
             CargaDatos.cargarDesdeXML();
         }
-        else{
-            Universidad universidad = Universidad.getUniversidad();
-            Persistencia.cargarArbol(archivoUni);
-        }
+
+
+
     }
-    public static boolean cargarDesdeXML() throws NoExisteElArchivoException, AsignaturaExistenteException, org.xml.sax.SAXException, java.io.IOException, YaEstaInscriptoElAlumnoALaUniversidadException,javax.xml.parsers.ParserConfigurationException {
+    public static void cargarDesdeXML() throws NoExisteElArchivoException, AsignaturaExistenteException, org.xml.sax.SAXException, java.io.IOException, YaEstaInscriptoElAlumnoALaUniversidadException,javax.xml.parsers.ParserConfigurationException {
         File archivo = new File("cargaInicial.xml");;
         if (archivo == null || !archivo.exists()) {
             throw new NoExisteElArchivoException("El archivo" + archivo.toString() + "no existe");
@@ -109,9 +109,6 @@ public class CargaDatos {
                 uni.agregaAlumno(alu);
             }
         }
-
-        return true;
-
 
     }
 }

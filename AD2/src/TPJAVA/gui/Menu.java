@@ -1,5 +1,7 @@
 package TPJAVA.gui;
 
+import TPJAVA.domain.persistencia.CargaDatos;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -7,6 +9,14 @@ import java.io.File;
 
 public class Menu {
 
+    public static void inicializaApp(){
+        try {
+            CargaDatos.cargarDatos();
+
+        } catch (Exception e) {
+
+        }
+    }
     public static void abreMenu(){
         JFrame ventana = new JFrame("Sistema Académico");
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

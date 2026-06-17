@@ -12,27 +12,31 @@ import TPJAVA.domain.universidad.exceptions.AsignaturaExistenteException;
 import TPJAVA.domain.universidad.exceptions.YaEstaInscriptoElAlumnoALaUniversidadException;
 import com.sun.source.tree.Tree;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 
-public class Universidad {
+public class Universidad implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private static Universidad universidad;
     private TreeSet<Asignatura> asignaturas;
-    private static TreeSet<Alumno> alumnos;
+    private TreeSet<Alumno> alumnos;
     private String nombre;
 
 
+    public static void setInstancia(Universidad uniDeserializada) {
+        universidad = uniDeserializada;
+    }
     public static Universidad getUniversidad(){
         if (universidad == null)
             universidad = new Universidad();
         return  universidad;
     }
 
-    public static TreeSet<Alumno> getAlumnos(){
-        if (alumnos == null)
-            alumnos = new TreeSet<>();
+    public  TreeSet<Alumno> getAlumnos(){
         return  alumnos;
     }
 
@@ -50,7 +54,7 @@ public class Universidad {
         else throw new AsignaturaExistenteException("Ya existe la asignatura en la universidad");
     }
 
-    public TreeSet getAsignaturas(){
+    public TreeSet<Asignatura> getAsignaturas(){
         return asignaturas;
     }
 

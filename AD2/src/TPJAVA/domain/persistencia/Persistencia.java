@@ -1,31 +1,30 @@
 package TPJAVA.domain.persistencia;
 
-
+import TPJAVA.domain.persistencia.exceptions.NoExisteElArchivoException;
+import TPJAVA.domain.universidad.Universidad;
 import java.io.*;
-import java.util.List;
-import java.util.TreeSet;
 
 public class Persistencia {
-    private static final String UNIVERSIDAD_FILE="Universidad.dat";
+    private static final String UNIVERSIDAD_FILE = "Universidad.dat";
 
-    private static <T> void guardarArbol(TreeSet<T> arbol, String archivo){
-        try {
-            ObjectOutputStream OOS = new ObjectOutputStream(new FileOutputStream(archivo));
-            OOS.writeObject(arbol);
+    // Guardar toda la instancia del Singleton
+    public static void guardarUniversidad() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(UNIVERSIDAD_FILE))) {
+            oos.writeObject(Universidad.getUniversidad());
         } catch (IOException e) {
-            throw new RuntimeException("Error al guardar" + archivo,e);
+            throw new RuntimeException("Error al guardar la universidad", e);
         }
     }
 
-    private static <T> TreeSet <T> cargarArbol(String archivo){
-        try {
-            ObjectInputStream OIS = new ObjectInputStream(new FileInputStream(archivo));
-            return (TreeSet<T>)OIS.readObject();
-        } catch (IOException e) {
-            throw new RuntimeException("Error al leer" + archivo,e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("No se encontro el objeto");
+    // Cargar y restaurar el Singleton
+    public static void cargarUniversidad() throws NoExisteElArchivoException,java.io.IOException, java.lang.ClassNotFoundException{
+        File file = new File(UNIVERSIDAD_FILE);
+        if (file == null || !file.exists()){
+            throw new NoExisteElArchivoException("No existe el archivo Universidad.dat");
         }
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(UNIVERSIDAD_FILE));
+        Universidad uniCargada = (Universidad) ois.readObject();
+        Universidad.setInstancia(uniCargada);
+
     }
-    
 }
