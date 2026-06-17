@@ -120,7 +120,7 @@ public abstract class Asignatura implements Comparable<Asignatura> {
     }
 
     public void creaClase(Clase clase) throws ClaseExistenteException {
-        if(clases.contains(clase))
+        if(!clases.contains(clase))
             clases.add(clase);
         else throw new ClaseExistenteException("Ya existe la clase");
     }

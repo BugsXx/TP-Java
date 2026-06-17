@@ -2,6 +2,7 @@ package TPJAVA.domain.persistencia;
 
 import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.*;
+import TPJAVA.domain.clase.Clase;
 import TPJAVA.domain.persistencia.exceptions.NoExisteElArchivoException;
 import TPJAVA.domain.universidad.Universidad;
 import TPJAVA.domain.universidad.exceptions.AsignaturaExistenteException;
@@ -19,7 +20,6 @@ public class CargaDatos {
 
     public static void cargarDatos() throws Exception {
         try {
-            // Intentamos recuperar el estado guardado
             Persistencia.cargarUniversidad();
         } catch (Exception e) {
             cargarDesdeXML();
@@ -40,7 +40,7 @@ public class CargaDatos {
         Universidad uni = Universidad.getUniversidad();
         Map<String, Alumno> mapaAlumnos = new HashMap<>();
 
-        // Cargar Asignaturas
+        // Cargar Asignaturas y sus Clases
         NodeList listaAsignaturas = doc.getElementsByTagName("asignatura");
         for (int i = 0; i < listaAsignaturas.getLength(); i++) {
             Element el = (Element) listaAsignaturas.item(i);
@@ -61,8 +61,16 @@ public class CargaDatos {
             if (asig != null) {
                 try {
                     uni.agregarAsignatura(asig);
-                } catch (AsignaturaExistenteException e) {
-                    System.out.println("Nota: Asignatura " + cod + " ya existe, continuando...");
+
+                    // Cargar clases de la asignatura
+                    NodeList listaClases = el.getElementsByTagName("clase");
+                    for (int k = 0; k < listaClases.getLength(); k++) {
+                        Element elClase = (Element) listaClases.item(k);
+                        Clase nuevaClase = new Clase(elClase.getAttribute("id"), elClase.getAttribute("fecha"), asig);
+                        asig.creaClase(nuevaClase);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Nota: Error cargando asignatura o clase " + cod + ": " + e.getMessage());
                 }
             }
         }
@@ -79,12 +87,12 @@ public class CargaDatos {
             try {
                 uni.agregaAlumno(alu);
             } catch (YaEstaInscriptoElAlumnoALaUniversidadException e) {
-                System.out.println("Nota: Alumno " + mat + " ya existe en universidad.");
+                System.out.println("Nota: Alumno " + mat + " ya existe.");
             }
             mapaAlumnos.put(mat, alu);
         }
 
-        // Procesar Inscripciones (jerArquicas)
+        // Procesar Inscripciones
         for (int i = 0; i < listaAlumnos.getLength(); i++) {
             Element elAlumno = (Element) listaAlumnos.item(i);
             String mat = elAlumno.getAttribute("matricula").trim();
@@ -95,11 +103,9 @@ public class CargaDatos {
                 Element elInsc = (Element) listaInscripciones.item(j);
                 String codAsig = elInsc.getAttribute("asignaturaCod").trim();
                 char cond = elInsc.getAttribute("condicion").trim().charAt(0);
-
                 try {
                     Asignatura asig = uni.encuentraAsignatura(codAsig);
                     asig.inscribirse(alu, cond);
-                    System.out.println("DEBUG: Inscrito " + alu.getNombreYApellido() + " en " + codAsig);
                 } catch (Exception e) {
                     System.err.println("ERROR inscribiendo a " + mat + " en " + codAsig + ": " + e.getMessage());
                 }

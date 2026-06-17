@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <universidad>
     <asignaturas>
-        <asignatura tipo="obligatoria" cod="ASIG001" nombre="Programación Avanzada" promocionable="true" cuatrimestre="1" clasesTotales="32" />
-        <asignatura tipo="obligatoria" cod="ASIG002" nombre="Base de Datos" promocionable="true" cuatrimestre="1" clasesTotales="30" />
-        <asignatura tipo="optativa" cod="ASIG003" nombre="Inteligencia Artificial" promocionable="false" cuatrimestre="2" clasesTotales="24" />
-        <asignatura tipo="pasantia" cod="ASIG004" nombre="Pasantía Profesional" promocionable="false" cuatrimestre="2" clasesTotales="10" />
-        <asignatura tipo="obligatoria" cod="ASIG005" nombre="Sistemas Operativos" promocionable="true" cuatrimestre="2" clasesTotales="28" />
+        <asignatura tipo="obligatoria" cod="ASIG001" nombre="Algoritmos Y Estructuras de Datos II" promocionable="true" cuatrimestre="1" clasesTotales="32">
+            <clases>
+                <clase id="C001" fecha="2026-06-01 08:00" />
+                <clase id="C002" fecha="2026-06-08 08:00" />
+            </clases>
+        </asignatura>
+        <asignatura tipo="obligatoria" cod="ASIG002" nombre="Base de Datos" promocionable="true" cuatrimestre="1" clasesTotales="30">
+            <clases>
+                <clase id="C003" fecha="2026-06-02 10:00" />
+                <clase id="C004" fecha="2026-06-09 10:00" />
+                <clase id="C005" fecha="2026-06-16 10:00" />
+            </clases>
+        </asignatura>
+        <asignatura tipo="optativa" cod="ASIG003" nombre="Inteligencia Artificial" promocionable="false" cuatrimestre="2" clasesTotales="24">
+            <clases>
+                <clase id="C006" fecha="2026-06-03 14:00" />
+                <clase id="C007" fecha="2026-06-10 14:00" />
+            </clases>
+        </asignatura>
+        <asignatura tipo="pasantia" cod="ASIG004" nombre="Pasantía Profesional" promocionable="false" cuatrimestre="2" clasesTotales="10">
+            <clases>
+                <clase id="C008" fecha="2026-06-04 09:00" />
+                <clase id="C009" fecha="2026-06-11 09:00" />
+                <clase id="C010" fecha="2026-06-18 09:00" />
+            </clases>
+        </asignatura>
+        <asignatura tipo="obligatoria" cod="ASIG005" nombre="Sistemas Operativos" promocionable="true" cuatrimestre="2" clasesTotales="28">
+            <clases>
+                <clase id="C011" fecha="2026-06-05 16:00" />
+                <clase id="C012" fecha="2026-06-12 16:00" />
+                <clase id="C013" fecha="2026-06-19 16:00" />
+                <clase id="C014" fecha="2026-06-26 16:00" />
+            </clases>
+        </asignatura>
     </asignaturas>
 
     <alumnos>
