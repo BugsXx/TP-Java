@@ -1,6 +1,5 @@
 package TPJAVA.domain.alumnos;
 
-import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.exceptions.YaInscriptoAAsignaturaException;
 import TPJAVA.domain.inscripciones.Inscripcion;
 

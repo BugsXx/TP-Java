@@ -125,6 +125,15 @@ public abstract class Asignatura implements Comparable<Asignatura> {
         else throw new ClaseExistenteException("Ya existe la clase");
     }
 
+    public Clase getClase(String id) {
+        for (Clase clase : clases) {
+            if (clase.getId().equals(id)) {
+                return clase;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Asignatura) {
@@ -143,6 +152,11 @@ public abstract class Asignatura implements Comparable<Asignatura> {
 
         // Si el presentismo es igual, comparamos por Código.
         return this.cod.compareTo(o.cod);
+    }
+
+    @Override
+    public String toString() {
+        return this.nombre + " (Cod: " + this.cod + ") - Presentismo: " + String.format("%.1f", this.calculaPresentismo()) + "%";
     }
 
 }

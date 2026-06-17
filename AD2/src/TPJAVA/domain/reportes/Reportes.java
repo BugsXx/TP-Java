@@ -8,70 +8,65 @@ import TPJAVA.domain.universidad.Universidad;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.TreeSet;
 
 public class Reportes {
 
-    private Reportes(){
-    }
+    private Reportes() {}
 
-    public static String detalleCatedra(String cod) throws NoEncuentraAsignaturaException{ // luego con swing ver como mostrarlo
+    public static String detalleCatedra(String cod) throws NoEncuentraAsignaturaException {
         Universidad universidad = Universidad.getUniversidad();
+        Asignatura asignaturaActual = universidad.encuentraAsignatura(cod);
+
         StringBuilder sb = new StringBuilder();
-        Asignatura asignaturaActual = null;
-        asignaturaActual = universidad.encuentraAsignatura(cod);
-        Iterator<Inscripcion> itInsc= asignaturaActual.getInscripciones().iterator();
         sb.append("Nombre de la asignatura: ").append(asignaturaActual.getNombre()).append("\n");
-        while(itInsc.hasNext()){
-            Inscripcion inscripcionActual = itInsc.next();
 
-            sb.append("Datos del alumno:\n\t").append(inscripcionActual.getAlumno());
-            sb.append("\n");
+        Iterator<Inscripcion> itInsc = asignaturaActual.getInscripciones().iterator();
 
-            sb.append("\t");
-            sb.append(inscripcionActual);
-            sb.append("\tPorcentaje de asistencia: ")
-                    .append(((float) inscripcionActual.getAsistencias() / asignaturaActual.getClasesTotales()) * 100)
-                    .append("%");
-            sb.append("\tModalidad: ").append(inscripcionActual.Modalidad());
-            sb.append("\tCondicion Academica: ").append(inscripcionActual.Condicion());
+        while (itInsc.hasNext()) {
+            Inscripcion insc = itInsc.next();
+
+            float total = asignaturaActual.getClasesTotales();
+            float asistencia = (total > 0) ? (insc.getAsistencias() / total) * 100 : 0.0f;
+
+            sb.append("\n--- Alumno ---\n");
+            sb.append("Nombre: ").append(insc.getAlumno().getNombreYApellido()).append("\n");
+            sb.append("Matrícula: ").append(insc.getAlumno().getMatricula()).append("\n");
+            sb.append("Fecha Nacimiento: ").append(insc.getAlumno().getFechaNacimiento()).append("\n");
+            sb.append("Asistencia: ").append(String.format("%.1f", asistencia)).append("%\n");
+            sb.append("Modalidad: ").append(insc.Modalidad()).append("\n");
+            sb.append("Condición: ").append(insc.Condicion()).append("\n");
         }
         return sb.toString();
     }
 
-
-    public static String detalleCatedraLibres(String cod, int C1, int C2)throws NoEncuentraAsignaturaException{
+    public static String detalleCatedraLibres(String cod, int C1, int C2) throws NoEncuentraAsignaturaException {
         Universidad universidad = Universidad.getUniversidad();
         StringBuilder sb = new StringBuilder();
-        sb.append("Detalle de los alumnos libres\n");
+        sb.append("Alumnos LIBRES en rango de cuatrimestre [").append(C1).append("-").append(C2).append("]:\n");
 
-            Asignatura asignaturaActual = universidad.encuentraAsignatura(cod);
-            int cuatrimestre = asignaturaActual.getCuatrimestre();
-            if(cuatrimestre >= C1 && cuatrimestre <= C2){
-                Iterator<Inscripcion> itAsig = asignaturaActual.getInscripciones().iterator();
-                while (itAsig.hasNext()) {
-                    Inscripcion inscripcionActual = itAsig.next();
-                    if(inscripcionActual.Condicion().equals("Libre"))
-                        sb.append(inscripcionActual.getAlumno()).append("\n");
+        Asignatura asignaturaActual = universidad.encuentraAsignatura(cod);
+        int cuatrimestre = asignaturaActual.getCuatrimestre();
+
+        if (cuatrimestre >= C1 && cuatrimestre <= C2) {
+            for (Inscripcion insc : asignaturaActual.getInscripciones()) {
+                if (insc.Condicion().equalsIgnoreCase("Libre")) {
+                    sb.append("- ").append(insc.getAlumno().getNombreYApellido()).append("\n");
                 }
             }
-            return  sb.toString();
         }
+        return sb.toString();
+    }
 
-
-
-    public static List rankingPresentismo(){
+    public static List<Asignatura> rankingPresentismo() {
         Universidad universidad = Universidad.getUniversidad();
+        List<Asignatura> ranking = new ArrayList<>();
+        Iterator<Asignatura> it = universidad.getAsignaturas().iterator();
 
-        TreeSet asignaturas = universidad.getAsignaturas();
-        List ranking = new ArrayList<>();
-        Iterator <TreeSet> it = asignaturas.iterator();
         int i = 0;
-        while(it.hasNext() && i < 3){
+        while (it.hasNext() && i < 3) {
             ranking.add(it.next());
             i++;
         }
         return ranking;
     }
-
 }

@@ -1,8 +1,12 @@
 package TPJAVA.gui;
 
+import TPJAVA.domain.alumnos.Alumno;
+import TPJAVA.domain.asignaturas.Asignatura;
+import TPJAVA.domain.clase.Clase;
 import TPJAVA.domain.persistencia.CargaDatos;
 import TPJAVA.domain.reportes.Reportes;
 import TPJAVA.domain.asignaturas.exceptions.NoEncuentraAsignaturaException;
+import TPJAVA.domain.universidad.Universidad;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +57,7 @@ public class Menu {
         btnRanking.addActionListener(e -> mostrarRanking(ventana));
         btnDetalle.addActionListener(e -> mostrarDetalleCatedra(ventana));
         btnLibres.addActionListener(e -> mostrarLibres(ventana));
-        btnAsistencia.addActionListener(e -> JOptionPane.showMessageDialog(ventana, "Funcionalidad en desarrollo"));
+        btnAsistencia.addActionListener(e -> registrarAsistencia(ventana));
 
         ventana.pack();
         ventana.setSize(400, 400);
@@ -95,4 +99,45 @@ public class Menu {
             }
         }
     }
-}
+
+    private static void registrarAsistencia(JFrame parent) {
+        String codAsig = JOptionPane.showInputDialog(parent, "Código de Asignatura:");
+        if (codAsig == null) return;
+
+        String idClase = JOptionPane.showInputDialog(parent, "ID de la Clase:");
+        if (idClase == null) return;
+
+        String matAlumno = JOptionPane.showInputDialog(parent, "Matrícula del Alumno:");
+        if (matAlumno == null) return;
+
+        try {
+            Universidad uni = Universidad.getUniversidad();
+
+            // Buscamos la asignatura
+            Asignatura asig = uni.encuentraAsignatura(codAsig);
+
+            // Buscamos la clase en la lista de la asignatura
+            Clase clase= asig.getClase(idClase);
+
+            // Buscamos la referencia exacta del alumno en el TreeSet de la Universidad
+            Alumno alu = null;
+            for (Alumno a : uni.getAlumnos()) {
+                if (a.getMatricula().equals(matAlumno)) {
+                    alu = a;
+                    break;
+                }
+            }
+
+            if (clase == null || alu == null) {
+                JOptionPane.showMessageDialog(parent, "Error: Clase o Alumno no encontrados.");
+                return;
+            }
+
+            clase.tomaAsistencia(alu);
+
+            JOptionPane.showMessageDialog(parent, "Asistencia registrada correctamente para " + alu.getNombreYApellido());
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(parent, "Error: " + e.getMessage());
+        }
+    }}
