@@ -5,8 +5,6 @@ import TPJAVA.domain.asignaturas.*;
 import TPJAVA.domain.clase.Clase;
 import TPJAVA.domain.persistencia.exceptions.NoExisteElArchivoException;
 import TPJAVA.domain.universidad.Universidad;
-import TPJAVA.domain.universidad.exceptions.AsignaturaExistenteException;
-import TPJAVA.domain.universidad.exceptions.YaEstaInscriptoElAlumnoALaUniversidadException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -28,9 +26,7 @@ public class CargaDatos {
 
     public static void cargarDesdeXML() throws Exception {
         File archivo = new File("AD2/cargaInicial.xml");
-        if (!archivo.exists()) {
-            throw new NoExisteElArchivoException("El archivo " + archivo.getAbsolutePath() + " no existe");
-        }
+        if (!archivo.exists()) throw new NoExisteElArchivoException("No existe: " + archivo.getAbsolutePath());
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -45,32 +41,20 @@ public class CargaDatos {
         for (int i = 0; i < listaAsignaturas.getLength(); i++) {
             Element el = (Element) listaAsignaturas.item(i);
             String tipo = el.getAttribute("tipo").toLowerCase().trim();
-            String cod = el.getAttribute("cod").trim();
-            String nombre = el.getAttribute("nombre").trim();
-            boolean promocionable = Boolean.parseBoolean(el.getAttribute("promocionable"));
-            int cuatrimestre = Integer.parseInt(el.getAttribute("cuatrimestre"));
-            int clasesTotales = Integer.parseInt(el.getAttribute("clasesTotales"));
-
             Asignatura asig = null;
+
             switch (tipo) {
-                case "obligatoria": asig = new AsignaturaObligatoria(cod, nombre, promocionable, cuatrimestre, clasesTotales); break;
-                case "optativa": asig = new AsignaturaOptativa(cod, nombre, promocionable, cuatrimestre, clasesTotales); break;
-                case "pasantia": case "pasantiaytesis": asig = new PasantiaYTesis(cod, nombre, promocionable, cuatrimestre, clasesTotales); break;
+                case "obligatoria": asig = new AsignaturaObligatoria(el.getAttribute("cod"), el.getAttribute("nombre"), Boolean.parseBoolean(el.getAttribute("promocionable")), Integer.parseInt(el.getAttribute("cuatrimestre")), Integer.parseInt(el.getAttribute("clasesTotales"))); break;
+                case "optativa": asig = new AsignaturaOptativa(el.getAttribute("cod"), el.getAttribute("nombre"), Boolean.parseBoolean(el.getAttribute("promocionable")), Integer.parseInt(el.getAttribute("cuatrimestre")), Integer.parseInt(el.getAttribute("clasesTotales"))); break;
+                case "pasantia": asig = new PasantiaYTesis(el.getAttribute("cod"), el.getAttribute("nombre"), Boolean.parseBoolean(el.getAttribute("promocionable")), Integer.parseInt(el.getAttribute("cuatrimestre")), Integer.parseInt(el.getAttribute("clasesTotales"))); break;
             }
 
             if (asig != null) {
-                try {
-                    uni.agregarAsignatura(asig);
-
-                    // Cargar clases de la asignatura
-                    NodeList listaClases = el.getElementsByTagName("clase");
-                    for (int k = 0; k < listaClases.getLength(); k++) {
-                        Element elClase = (Element) listaClases.item(k);
-                        Clase nuevaClase = new Clase(elClase.getAttribute("id"), elClase.getAttribute("fecha"), asig);
-                        asig.creaClase(nuevaClase);
-                    }
-                } catch (Exception e) {
-                    System.out.println("Nota: Error cargando asignatura o clase " + cod + ": " + e.getMessage());
+                try { uni.agregarAsignatura(asig); } catch (Exception e) {}
+                NodeList listaClases = el.getElementsByTagName("clase");
+                for (int k = 0; k < listaClases.getLength(); k++) {
+                    Element elCl = (Element) listaClases.item(k);
+                    try { asig.creaClase(new Clase(elCl.getAttribute("id"), elCl.getAttribute("fecha"), asig)); } catch (Exception e) {}
                 }
             }
         }
@@ -78,36 +62,26 @@ public class CargaDatos {
         // Cargar Alumnos
         NodeList listaAlumnos = doc.getElementsByTagName("alumno");
         for (int i = 0; i < listaAlumnos.getLength(); i++) {
-            Element elAlumno = (Element) listaAlumnos.item(i);
-            String mat = elAlumno.getAttribute("matricula").trim();
-            String nom = elAlumno.getAttribute("nombreYApellido").trim();
-            String fec = elAlumno.getAttribute("fechaNacimiento").trim();
-
-            Alumno alu = new Alumno(mat, nom, fec);
-            try {
-                uni.agregaAlumno(alu);
-            } catch (YaEstaInscriptoElAlumnoALaUniversidadException e) {
-                System.out.println("Nota: Alumno " + mat + " ya existe.");
-            }
-            mapaAlumnos.put(mat, alu);
+            Element elA = (Element) listaAlumnos.item(i);
+            Alumno alu = new Alumno(elA.getAttribute("matricula"), elA.getAttribute("nombreYApellido"), elA.getAttribute("fechaNacimiento"));
+            try { uni.agregaAlumno(alu); } catch (Exception e) {}
+            mapaAlumnos.put(alu.getMatricula(), alu);
         }
 
-        // Procesar Inscripciones
+        // Procesar Inscripciones y Asistencias
         for (int i = 0; i < listaAlumnos.getLength(); i++) {
-            Element elAlumno = (Element) listaAlumnos.item(i);
-            String mat = elAlumno.getAttribute("matricula").trim();
-            Alumno alu = mapaAlumnos.get(mat);
+            Element elA = (Element) listaAlumnos.item(i);
+            Alumno alu = mapaAlumnos.get(elA.getAttribute("matricula"));
+            NodeList listaInsc = elA.getElementsByTagName("inscripcion");
+            for (int j = 0; j < listaInsc.getLength(); j++) {
+                Element elInsc = (Element) listaInsc.item(j);
+                Asignatura asig = uni.encuentraAsignatura(elInsc.getAttribute("asignaturaCod"));
+                asig.inscribirse(alu, elInsc.getAttribute("condicion").charAt(0));
 
-            NodeList listaInscripciones = elAlumno.getElementsByTagName("inscripcion");
-            for (int j = 0; j < listaInscripciones.getLength(); j++) {
-                Element elInsc = (Element) listaInscripciones.item(j);
-                String codAsig = elInsc.getAttribute("asignaturaCod").trim();
-                char cond = elInsc.getAttribute("condicion").trim().charAt(0);
-                try {
-                    Asignatura asig = uni.encuentraAsignatura(codAsig);
-                    asig.inscribirse(alu, cond);
-                } catch (Exception e) {
-                    System.err.println("ERROR inscribiendo a " + mat + " en " + codAsig + ": " + e.getMessage());
+                NodeList listaAsist = elInsc.getElementsByTagName("asistencia");
+                for (int k = 0; k < listaAsist.getLength(); k++) {
+                    Clase clase = asig.getClase(((Element) listaAsist.item(k)).getAttribute("claseId"));
+                    if (clase != null) clase.tomaAsistencia(alu);
                 }
             }
         }

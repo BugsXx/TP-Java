@@ -58,15 +58,12 @@ public class Reportes {
     }
 
     public static List<Asignatura> rankingPresentismo() {
-        Universidad universidad = Universidad.getUniversidad();
-        List<Asignatura> ranking = new ArrayList<>();
-        Iterator<Asignatura> it = universidad.getAsignaturas().iterator();
+        List<Asignatura> lista = new ArrayList<>(Universidad.getUniversidad().getAsignaturas());
 
-        int i = 0;
-        while (it.hasNext() && i < 3) {
-            ranking.add(it.next());
-            i++;
-        }
-        return ranking;
+        lista.sort((a1, a2) -> {
+            return Float.compare(a2.calculaPresentismo(), a1.calculaPresentismo());
+        });
+
+        return lista.subList(0, Math.min(3, lista.size()));
     }
 }

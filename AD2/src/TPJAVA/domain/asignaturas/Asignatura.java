@@ -144,13 +144,11 @@ public abstract class Asignatura implements Comparable<Asignatura> {
 
     @Override
     public int compareTo(Asignatura o) {
-        // Prioridad: Ordenar por Presentismo (Descendente)
+        // Ordenar por Presentismo (Descendente)
         int cmp = Double.compare(o.calculaPresentismo(), this.calculaPresentismo());
 
-        // Si el presentismo es distinto, devolvemos ese orden
-        if (cmp != 0) return cmp;
-
         // Si el presentismo es igual, comparamos por Código.
+        if (cmp != 0) return cmp;
         return this.cod.compareTo(o.cod);
     }
 
