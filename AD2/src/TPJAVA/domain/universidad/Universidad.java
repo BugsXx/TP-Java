@@ -10,6 +10,7 @@ import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.exceptions.NoEncuentraAsignaturaException;
 import TPJAVA.domain.universidad.exceptions.AsignaturaExistenteException;
 import TPJAVA.domain.universidad.exceptions.YaEstaInscriptoElAlumnoALaUniversidadException;
+import com.sun.source.tree.Tree;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -19,7 +20,7 @@ import java.util.TreeSet;
 public class Universidad {
     private static Universidad universidad;
     private TreeSet<Asignatura> asignaturas;
-    private static List<Alumno> alumnos;
+    private static TreeSet<Alumno> alumnos;
     private String nombre;
 
 
@@ -29,9 +30,9 @@ public class Universidad {
         return  universidad;
     }
 
-    public static List<Alumno> getAlumnos(){
+    public static TreeSet<Alumno> getAlumnos(){
         if (alumnos == null)
-            alumnos = new LinkedList<>();
+            alumnos = new TreeSet<>();
         return  alumnos;
     }
 

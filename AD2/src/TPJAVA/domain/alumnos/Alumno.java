@@ -1,12 +1,13 @@
 package TPJAVA.domain.alumnos;
 
+import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.exceptions.YaInscriptoAAsignaturaException;
 import TPJAVA.domain.inscripciones.Inscripcion;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class Alumno extends Persona {
+public class Alumno extends Persona implements Comparable<Alumno> {
     private List<Inscripcion> inscripciones;
     private String matricula;
 
@@ -44,5 +45,10 @@ public class Alumno extends Persona {
         if (obj instanceof Alumno)
             return ((Alumno) obj).getNombreYApellido().equals(this.getNombreYApellido()) && ((Alumno) obj).getFechaNacimiento().equals(this.getFechaNacimiento());
         else  return false;
+    }
+
+    @Override
+    public int compareTo(Alumno o) {
+        return o.getNombreYApellido().compareTo(this.getNombreYApellido());
     }
 }
