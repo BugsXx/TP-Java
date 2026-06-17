@@ -1,38 +1,40 @@
 package TPJAVA.gui;
 
 import TPJAVA.domain.persistencia.CargaDatos;
+import TPJAVA.domain.reportes.Reportes;
+import TPJAVA.domain.asignaturas.exceptions.NoEncuentraAsignaturaException;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.io.File;
+import java.util.List;
 
 public class Menu {
 
     public static void inicializaApp(){
         try {
             CargaDatos.cargarDatos();
-
         } catch (Exception e) {
-
+            System.err.println("Error al cargar los datos iniciales: " + e.getMessage());
         }
     }
+
     public static void abreMenu(){
         JFrame ventana = new JFrame("Sistema Académico");
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
 
-        // Titulo
+        // Título
         JLabel lblTitulo = new JLabel("SISTEMA ACADÉMICO", JLabel.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 22));
         gbc.gridy = 0;
         ventana.add(lblTitulo, gbc);
 
-        // Panel de Acciones (Visible desde el inicio)
+        // Panel de Acciones
         JPanel panelAcciones = new JPanel(new GridLayout(4, 1, 10, 10));
         JButton btnAsistencia = new JButton("Registrar Asistencia");
         JButton btnRanking = new JButton("Ver Ranking de Asignaturas");
@@ -43,20 +45,54 @@ public class Menu {
         panelAcciones.add(btnRanking);
         panelAcciones.add(btnDetalle);
         panelAcciones.add(btnLibres);
-        panelAcciones.setVisible(true);
+
         gbc.gridy = 1;
         ventana.add(panelAcciones, gbc);
 
-        // Lógica de los botones
-        btnAsistencia.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Abriendo formulario de asistencia..."));
-        btnRanking.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Generando ranking de presentismo..."));
-        btnDetalle.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Mostrando detalle de alumnos..."));
-        btnLibres.addActionListener(ev -> JOptionPane.showMessageDialog(ventana, "Abriendo panel de alumnos libres..."));
+        // Lógica de botones
+        btnRanking.addActionListener(e -> mostrarRanking(ventana));
+        btnDetalle.addActionListener(e -> mostrarDetalleCatedra(ventana));
+        btnLibres.addActionListener(e -> mostrarLibres(ventana));
+        btnAsistencia.addActionListener(e -> JOptionPane.showMessageDialog(ventana, "Funcionalidad en desarrollo"));
 
-        // Pack inicial y visibilidad
         ventana.pack();
-        ventana.setSize(400, 350); // Ajustado a un tamaño más compacto al quitar el botón
+        ventana.setSize(400, 400);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
+    }
+
+    private static void mostrarRanking(JFrame parent) {
+        List ranking = Reportes.rankingPresentismo();
+        StringBuilder sb = new StringBuilder("Top 3 Asignaturas:\n\n");
+        for (Object o : ranking) {
+            sb.append(o.toString()).append("\n");
+        }
+        JOptionPane.showMessageDialog(parent, new JScrollPane(new JTextArea(sb.toString(), 10, 30)));
+    }
+
+    private static void mostrarDetalleCatedra(JFrame parent) {
+        String cod = JOptionPane.showInputDialog(parent, "Ingrese código de asignatura:");
+        if (cod != null) {
+            try {
+                String detalle = Reportes.detalleCatedra(cod);
+                JTextArea area = new JTextArea(detalle, 15, 40);
+                JOptionPane.showMessageDialog(parent, new JScrollPane(area));
+            } catch (NoEncuentraAsignaturaException e) {
+                JOptionPane.showMessageDialog(parent, "Asignatura no encontrada.");
+            }
+        }
+    }
+
+    private static void mostrarLibres(JFrame parent) {
+        String cod = JOptionPane.showInputDialog(parent, "Ingrese código de asignatura:");
+        if (cod != null) {
+            try {
+                // Asumiendo rango de cuatrimestres 1 a 2
+                String informe = Reportes.detalleCatedraLibres(cod, 1, 2);
+                JOptionPane.showMessageDialog(parent, new JScrollPane(new JTextArea(informe, 10, 30)));
+            } catch (NoEncuentraAsignaturaException e) {
+                JOptionPane.showMessageDialog(parent, "Asignatura no encontrada.");
+            }
+        }
     }
 }

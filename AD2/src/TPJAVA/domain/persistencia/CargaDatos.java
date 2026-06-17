@@ -1,114 +1,109 @@
 package TPJAVA.domain.persistencia;
 
 import TPJAVA.domain.alumnos.Alumno;
-import TPJAVA.domain.asignaturas.Asignatura;
-import TPJAVA.domain.asignaturas.AsignaturaObligatoria;
-import TPJAVA.domain.asignaturas.AsignaturaOptativa;
-import TPJAVA.domain.asignaturas.PasantiaYTesis;
+import TPJAVA.domain.asignaturas.*;
 import TPJAVA.domain.persistencia.exceptions.NoExisteElArchivoException;
 import TPJAVA.domain.universidad.Universidad;
 import TPJAVA.domain.universidad.exceptions.AsignaturaExistenteException;
 import TPJAVA.domain.universidad.exceptions.YaEstaInscriptoElAlumnoALaUniversidadException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-
-// Importá tus modelos correspondientes
-// import TPJAVA.modelo.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CargaDatos {
 
-    public static void cargarDatos()throws  java.lang.ClassNotFoundException, NoExisteElArchivoException, AsignaturaExistenteException, org.xml.sax.SAXException, java.io.IOException, YaEstaInscriptoElAlumnoALaUniversidadException,javax.xml.parsers.ParserConfigurationException{
-        try{
+    public static void cargarDatos() throws Exception {
+        try {
+            // Intentamos recuperar el estado guardado
             Persistencia.cargarUniversidad();
-
-        }catch(NoExisteElArchivoException e){
-            CargaDatos.cargarDesdeXML();
+        } catch (Exception e) {
+            cargarDesdeXML();
         }
-
-
-
     }
-    public static void cargarDesdeXML() throws NoExisteElArchivoException, AsignaturaExistenteException, org.xml.sax.SAXException, java.io.IOException, YaEstaInscriptoElAlumnoALaUniversidadException,javax.xml.parsers.ParserConfigurationException {
-        File archivo = new File("cargaInicial.xml");;
-        if (archivo == null || !archivo.exists()) {
-            throw new NoExisteElArchivoException("El archivo" + archivo.toString() + "no existe");
+
+    public static void cargarDesdeXML() throws Exception {
+        File archivo = new File("AD2/cargaInicial.xml");
+        if (!archivo.exists()) {
+            throw new NoExisteElArchivoException("El archivo " + archivo.getAbsolutePath() + " no existe");
         }
 
-
-        // Configurar y parsear el documento XML
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(archivo);
         doc.getDocumentElement().normalize();
 
-        // Obtener la instancia de la Universidad (Singleton)
         Universidad uni = Universidad.getUniversidad();
+        Map<String, Alumno> mapaAlumnos = new HashMap<>();
 
-        // Procesar e instanciar ASIGNATURAS (Polimorfismo)
+        // Cargar Asignaturas
         NodeList listaAsignaturas = doc.getElementsByTagName("asignatura");
         for (int i = 0; i < listaAsignaturas.getLength(); i++) {
-            Node nodo = listaAsignaturas.item(i);
+            Element el = (Element) listaAsignaturas.item(i);
+            String tipo = el.getAttribute("tipo").toLowerCase().trim();
+            String cod = el.getAttribute("cod").trim();
+            String nombre = el.getAttribute("nombre").trim();
+            boolean promocionable = Boolean.parseBoolean(el.getAttribute("promocionable"));
+            int cuatrimestre = Integer.parseInt(el.getAttribute("cuatrimestre"));
+            int clasesTotales = Integer.parseInt(el.getAttribute("clasesTotales"));
 
-            if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-                Element elemento = (Element) nodo;
+            Asignatura asig = null;
+            switch (tipo) {
+                case "obligatoria": asig = new AsignaturaObligatoria(cod, nombre, promocionable, cuatrimestre, clasesTotales); break;
+                case "optativa": asig = new AsignaturaOptativa(cod, nombre, promocionable, cuatrimestre, clasesTotales); break;
+                case "pasantia": case "pasantiaytesis": asig = new PasantiaYTesis(cod, nombre, promocionable, cuatrimestre, clasesTotales); break;
+            }
 
-                // Detectar el tipo de asignatura (obligatoria, optativa, pasantia)
-                String tipo = elemento.getAttribute("tipo").toLowerCase().trim();
-
-                // Extraer los datos comunes de la herencia
-                String cod = elemento.getAttribute("cod");
-                String nombre = elemento.getAttribute("nombre");
-                boolean promocionable = Boolean.parseBoolean(elemento.getAttribute("promocionable"));
-                int cuatrimestre = Integer.parseInt(elemento.getAttribute("cuatrimestre"));
-                int clasesTotales = Integer.parseInt(elemento.getAttribute("clasesTotales"));
-
-                // Declaramos la variable abstracta padre
-                Asignatura asig = null;
-
-                // Decidir qué subclase instanciar según el tipo
-                switch (tipo) {
-                        case "obligatoria":
-                            asig = new AsignaturaObligatoria(cod, nombre, promocionable, cuatrimestre, clasesTotales);
-                            break;
-                        case "optativa":
-                            asig = new AsignaturaOptativa(cod, nombre, promocionable, cuatrimestre, clasesTotales);
-                            break;
-                        case "pasantia":
-                        case "pasantiaytesis":
-                            asig = new PasantiaYTesis(cod, nombre, promocionable, cuatrimestre, clasesTotales);
-                            break;
-                        default:
-                            System.out.println("Tipo de asignatura desconocido: " + tipo);
-                            continue; // Salta esta iteración si el tipo no es válido
-                    }
-                    // Guardar la subclase en la lista genérica de la Universidad
-                if (asig != null) {
+            if (asig != null) {
+                try {
                     uni.agregarAsignatura(asig);
+                } catch (AsignaturaExistenteException e) {
+                    System.out.println("Nota: Asignatura " + cod + " ya existe, continuando...");
                 }
             }
         }
 
-        // Procesar e instanciar ALUMNOS
+        // Cargar Alumnos
         NodeList listaAlumnos = doc.getElementsByTagName("alumno");
         for (int i = 0; i < listaAlumnos.getLength(); i++) {
-            Node nodo = listaAlumnos.item(i);
+            Element elAlumno = (Element) listaAlumnos.item(i);
+            String mat = elAlumno.getAttribute("matricula").trim();
+            String nom = elAlumno.getAttribute("nombreYApellido").trim();
+            String fec = elAlumno.getAttribute("fechaNacimiento").trim();
 
-            if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-                Element elemento = (Element) nodo;
-
-                String matricula = elemento.getAttribute("matricula");
-                String nombreYApellido = elemento.getAttribute("nombreYApellido");
-                String fechaNacimiento = elemento.getAttribute("fechaNacimiento");
-
-                Alumno alu = new Alumno(matricula, nombreYApellido, fechaNacimiento);
+            Alumno alu = new Alumno(mat, nom, fec);
+            try {
                 uni.agregaAlumno(alu);
+            } catch (YaEstaInscriptoElAlumnoALaUniversidadException e) {
+                System.out.println("Nota: Alumno " + mat + " ya existe en universidad.");
             }
+            mapaAlumnos.put(mat, alu);
         }
 
+        // Procesar Inscripciones (jerArquicas)
+        for (int i = 0; i < listaAlumnos.getLength(); i++) {
+            Element elAlumno = (Element) listaAlumnos.item(i);
+            String mat = elAlumno.getAttribute("matricula").trim();
+            Alumno alu = mapaAlumnos.get(mat);
+
+            NodeList listaInscripciones = elAlumno.getElementsByTagName("inscripcion");
+            for (int j = 0; j < listaInscripciones.getLength(); j++) {
+                Element elInsc = (Element) listaInscripciones.item(j);
+                String codAsig = elInsc.getAttribute("asignaturaCod").trim();
+                char cond = elInsc.getAttribute("condicion").trim().charAt(0);
+
+                try {
+                    Asignatura asig = uni.encuentraAsignatura(codAsig);
+                    asig.inscribirse(alu, cond);
+                    System.out.println("DEBUG: Inscrito " + alu.getNombreYApellido() + " en " + codAsig);
+                } catch (Exception e) {
+                    System.err.println("ERROR inscribiendo a " + mat + " en " + codAsig + ": " + e.getMessage());
+                }
+            }
+        }
     }
 }

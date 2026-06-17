@@ -30,8 +30,9 @@ public class Reportes {
 
             sb.append("\t");
             sb.append(inscripcionActual);
-
-            sb.append("\tPorcentaje de asistencia: ").append(inscripcionActual.getAsistencias()/asignaturaActual.getClasesTotales() * 100);
+            sb.append("\tPorcentaje de asistencia: ")
+                    .append(((float) inscripcionActual.getAsistencias() / asignaturaActual.getClasesTotales()) * 100)
+                    .append("%");
             sb.append("\tModalidad: ").append(inscripcionActual.Modalidad());
             sb.append("\tCondicion Academica: ").append(inscripcionActual.Condicion());
         }

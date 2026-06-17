@@ -126,15 +126,23 @@ public abstract class Asignatura implements Comparable<Asignatura> {
     }
 
     @Override
-    public int compareTo(Asignatura o) {
-        return o.calculaPresentismo().compareTo(this.calculaPresentismo());
+    public boolean equals(Object obj) {
+        if (obj instanceof Asignatura) {
+            return ((Asignatura) obj).getCod().trim().equals(this.cod.trim());
+        }
+        return false;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Asignatura)
-            return ((Asignatura) obj).getCod() == this.cod;
-        else return false;
+    public int compareTo(Asignatura o) {
+        // Prioridad: Ordenar por Presentismo (Descendente)
+        int cmp = Double.compare(o.calculaPresentismo(), this.calculaPresentismo());
+
+        // Si el presentismo es distinto, devolvemos ese orden
+        if (cmp != 0) return cmp;
+
+        // Si el presentismo es igual, comparamos por Código.
+        return this.cod.compareTo(o.cod);
     }
 
 }

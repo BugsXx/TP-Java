@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<universidad>
+    <asignaturas>
+        <asignatura tipo="obligatoria" cod="ASIG001" nombre="Programación Avanzada" promocionable="true" cuatrimestre="1" clasesTotales="32" />
+        <asignatura tipo="obligatoria" cod="ASIG002" nombre="Base de Datos" promocionable="true" cuatrimestre="1" clasesTotales="30" />
+        <asignatura tipo="optativa" cod="ASIG003" nombre="Inteligencia Artificial" promocionable="false" cuatrimestre="2" clasesTotales="24" />
+        <asignatura tipo="pasantia" cod="ASIG004" nombre="Pasantía Profesional" promocionable="false" cuatrimestre="2" clasesTotales="10" />
+        <asignatura tipo="obligatoria" cod="ASIG005" nombre="Sistemas Operativos" promocionable="true" cuatrimestre="2" clasesTotales="28" />
+    </asignaturas>
+
+    <alumnos>
+        <alumno matricula="1001" nombreYApellido="Juan Perez" fechaNacimiento="2000-05-15">
+            <inscripcion asignaturaCod="ASIG001" condicion="r" />
+            <inscripcion asignaturaCod="ASIG002" condicion="c" />
+        </alumno>
+        <alumno matricula="1002" nombreYApellido="Maria Gomez" fechaNacimiento="1999-11-22">
+            <inscripcion asignaturaCod="ASIG001" condicion="r" />
+            <inscripcion asignaturaCod="ASIG003" condicion="o" />
+        </alumno>
+        <alumno matricula="1003" nombreYApellido="Carlos Lopez" fechaNacimiento="2001-01-10">
+            <inscripcion asignaturaCod="ASIG002" condicion="r" />
+            <inscripcion asignaturaCod="ASIG005" condicion="r" />
+        </alumno>
+        <alumno matricula="1004" nombreYApellido="Ana Ruiz" fechaNacimiento="2000-08-30">
+            <inscripcion asignaturaCod="ASIG004" condicion="r" />
+        </alumno>
+        <alumno matricula="1005" nombreYApellido="Luis Diaz" fechaNacimiento="1998-12-05">
+            <inscripcion asignaturaCod="ASIG001" condicion="o" />
+            <inscripcion asignaturaCod="ASIG005" condicion="c" />
+        </alumno>
+        <alumno matricula="1006" nombreYApellido="Elena Paz" fechaNacimiento="2000-03-12">
+            <inscripcion asignaturaCod="ASIG002" condicion="r" />
+            <inscripcion asignaturaCod="ASIG003" condicion="r" />
+        </alumno>
+        <alumno matricula="1007" nombreYApellido="Jorge Sol" fechaNacimiento="1999-07-20">
+            <inscripcion asignaturaCod="ASIG004" condicion="r" />
+            <inscripcion asignaturaCod="ASIG005" condicion="r" />
+        </alumno>
+        <alumno matricula="1008" nombreYApellido="Sofia Mar" fechaNacimiento="2001-02-14">
+            <inscripcion asignaturaCod="ASIG001" condicion="r" />
+        </alumno>
+        <alumno matricula="1009" nombreYApellido="Diego Luna" fechaNacimiento="2000-10-09">
+            <inscripcion asignaturaCod="ASIG003" condicion="c" />
+            <inscripcion asignaturaCod="ASIG004" condicion="o" />
+        </alumno>
+        <alumno matricula="1010" nombreYApellido="Laura Sol" fechaNacimiento="1999-04-25">
+            <inscripcion asignaturaCod="ASIG002" condicion="r" />
+            <inscripcion asignaturaCod="ASIG005" condicion="r" />
+        </alumno>
+    </alumnos>
+</universidad>

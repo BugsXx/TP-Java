@@ -31,24 +31,22 @@ public class Universidad implements Serializable {
         universidad = uniDeserializada;
     }
     public static Universidad getUniversidad(){
-        if (universidad == null)
+        if (universidad == null) {
             universidad = new Universidad();
-        return  universidad;
+        }
+        return universidad;
     }
-
     public  TreeSet<Alumno> getAlumnos(){
         return  alumnos;
     }
 
     private Universidad(){
-
         asignaturas = new TreeSet<>();
-        universidad = null;
-        alumnos = null;
+        alumnos = new TreeSet<>();
     }
 
     public void agregarAsignatura(Asignatura asignatura)throws AsignaturaExistenteException {
-        if(! asignaturas.contains(asignatura)){
+        if(!asignaturas.contains(asignatura)){
             asignaturas.add(asignatura);
         }
         else throw new AsignaturaExistenteException("Ya existe la asignatura en la universidad");
