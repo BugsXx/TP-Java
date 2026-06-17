@@ -88,16 +88,29 @@ public class Menu {
     }
 
     private static void mostrarLibres(JFrame parent) {
-        String cod = JOptionPane.showInputDialog(parent, "Ingrese código de asignatura:");
-        if (cod != null) {
-            try {
-                // Asumiendo rango de cuatrimestres 1 a 2
-                String informe = Reportes.detalleCatedraLibres(cod, 1, 2);
-                JOptionPane.showMessageDialog(parent, new JScrollPane(new JTextArea(informe, 10, 30)));
-            } catch (NoEncuentraAsignaturaException e) {
-                JOptionPane.showMessageDialog(parent, "Asignatura no encontrada.");
-            }
+        Object[] opciones = {"Año 1", "Año 2", "Año 3", "Año 4", "Año 5", "Ver Todos"};
+
+        int seleccion = JOptionPane.showOptionDialog(
+                parent,
+                "Seleccione el año a consultar:",
+                "Listado de Alumnos Libres",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[5] // Opción por defecto
+        );
+
+        Integer anio = null;
+        if (seleccion >= 0 && seleccion <= 4) { // Si eligió Año 1 a 5
+            anio = seleccion + 1;
         }
+
+        String informe = Reportes.listarAlumnosLibres(anio);
+
+        JTextArea area = new JTextArea(informe, 15, 40);
+        area.setEditable(false);
+        JOptionPane.showMessageDialog(parent, new JScrollPane(area));
     }
 
     private static void registrarAsistencia(JFrame parent) {

@@ -39,19 +39,29 @@ public class Reportes {
         return sb.toString();
     }
 
-    public static String detalleCatedraLibres(String cod, int C1, int C2) throws NoEncuentraAsignaturaException {
-        Universidad universidad = Universidad.getUniversidad();
+    public static String listarAlumnosLibres(Integer anio) {
+        Universidad uni = Universidad.getUniversidad();
         StringBuilder sb = new StringBuilder();
-        sb.append("Alumnos LIBRES en rango de cuatrimestre [").append(C1).append("-").append(C2).append("]:\n");
 
-        Asignatura asignaturaActual = universidad.encuentraAsignatura(cod);
-        int cuatrimestre = asignaturaActual.getCuatrimestre();
+        if (anio != null) {
+            sb.append("Alumnos LIBRES para el Año: ").append(anio).append("\n");
+        } else {
+            sb.append("Alumnos LIBRES en TODAS las asignaturas:\n");
+        }
 
-        if (cuatrimestre >= C1 && cuatrimestre <= C2) {
-            for (Inscripcion insc : asignaturaActual.getInscripciones()) {
-                if (insc.Condicion().equalsIgnoreCase("Libre")) {
-                    sb.append("- ").append(insc.getAlumno().getNombreYApellido()).append("\n");
+        for (Asignatura asig : uni.getAsignaturas()) {
+            boolean filtrar = (anio == null) || (asig.getCuatrimestre() > (anio-1)*2 && asig.getCuatrimestre() <= anio*2);
+
+            if (filtrar) {
+                sb.append("\nAsignatura: ").append(asig.getNombre()).append("\n");
+                boolean tieneLibres = false;
+                for (Inscripcion insc : asig.getInscripciones()) {
+                    if (insc.Condicion().equalsIgnoreCase("Libre")) {
+                        sb.append(" - ").append(insc.getAlumno().getNombreYApellido()).append(" (").append(insc.getAlumno().getMatricula()).append(")\n");
+                        tieneLibres = true;
+                    }
                 }
+                if (!tieneLibres) sb.append(" (Sin alumnos libres)\n");
             }
         }
         return sb.toString();
