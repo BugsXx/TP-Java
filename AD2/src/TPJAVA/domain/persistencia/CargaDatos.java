@@ -5,6 +5,7 @@ import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.asignaturas.AsignaturaObligatoria;
 import TPJAVA.domain.asignaturas.AsignaturaOptativa;
 import TPJAVA.domain.asignaturas.PasantiaYTesis;
+import TPJAVA.domain.persistencia.exceptions.NoExisteElArchivoException;
 import TPJAVA.domain.universidad.Universidad;
 import TPJAVA.domain.universidad.exceptions.AsignaturaExistenteException;
 import TPJAVA.domain.universidad.exceptions.YaEstaInscriptoElAlumnoALaUniversidadException;
@@ -21,45 +22,56 @@ import java.io.File;
 
 public class CargaDatos {
 
-    public static boolean cargarDesdeXML(File archivo) throws AsignaturaExistenteException, YaEstaInscriptoElAlumnoALaUniversidadException {
+    public static void cargarDatos()throws NoExisteElArchivoException, AsignaturaExistenteException, org.xml.sax.SAXException, java.io.IOException, YaEstaInscriptoElAlumnoALaUniversidadException,javax.xml.parsers.ParserConfigurationException{
+        File archivoUni = new File("Universidad.dat");
+        File archivoAlumnos = new File("Alumnos.dat");
+        if (archivoUni == null || !archivoUni.exists()) {
+            CargaDatos.cargarDesdeXML();
+        }
+        else{
+            Universidad universidad = Universidad.getUniversidad();
+            Persistencia.cargarArbol(archivoUni);
+        }
+    }
+    public static boolean cargarDesdeXML() throws NoExisteElArchivoException, AsignaturaExistenteException, org.xml.sax.SAXException, java.io.IOException, YaEstaInscriptoElAlumnoALaUniversidadException,javax.xml.parsers.ParserConfigurationException {
+        File archivo = new File("cargaInicial.xml");;
         if (archivo == null || !archivo.exists()) {
-            System.err.println("Error: El archivo no existe o es nulo.");
-            return false;
+            throw new NoExisteElArchivoException("El archivo" + archivo.toString() + "no existe");
         }
 
-        try {
-            // 1. Configurar y parsear el documento XML
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(archivo);
-            doc.getDocumentElement().normalize();
 
-            // 2. Obtener la instancia de la Universidad (Singleton)
-            Universidad uni = Universidad.getUniversidad();
+        // Configurar y parsear el documento XML
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(archivo);
+        doc.getDocumentElement().normalize();
 
-            // 3. Procesar e instanciar ASIGNATURAS (Polimorfismo)
-            NodeList listaAsignaturas = doc.getElementsByTagName("asignatura");
-            for (int i = 0; i < listaAsignaturas.getLength(); i++) {
-                Node nodo = listaAsignaturas.item(i);
+        // Obtener la instancia de la Universidad (Singleton)
+        Universidad uni = Universidad.getUniversidad();
 
-                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-                    Element elemento = (Element) nodo;
+        // Procesar e instanciar ASIGNATURAS (Polimorfismo)
+        NodeList listaAsignaturas = doc.getElementsByTagName("asignatura");
+        for (int i = 0; i < listaAsignaturas.getLength(); i++) {
+            Node nodo = listaAsignaturas.item(i);
 
-                    // Detectar el tipo de asignatura (obligatoria, optativa, pasantia)
-                    String tipo = elemento.getAttribute("tipo").toLowerCase().trim();
+            if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                Element elemento = (Element) nodo;
 
-                    // Extraer los datos comunes de la herencia
-                    String cod = elemento.getAttribute("cod");
-                    String nombre = elemento.getAttribute("nombre");
-                    boolean promocionable = Boolean.parseBoolean(elemento.getAttribute("promocionable"));
-                    int cuatrimestre = Integer.parseInt(elemento.getAttribute("cuatrimestre"));
-                    int clasesTotales = Integer.parseInt(elemento.getAttribute("clasesTotales"));
+                // Detectar el tipo de asignatura (obligatoria, optativa, pasantia)
+                String tipo = elemento.getAttribute("tipo").toLowerCase().trim();
 
-                    // Declaramos la variable abstracta padre
-                    Asignatura asig = null;
+                // Extraer los datos comunes de la herencia
+                String cod = elemento.getAttribute("cod");
+                String nombre = elemento.getAttribute("nombre");
+                boolean promocionable = Boolean.parseBoolean(elemento.getAttribute("promocionable"));
+                int cuatrimestre = Integer.parseInt(elemento.getAttribute("cuatrimestre"));
+                int clasesTotales = Integer.parseInt(elemento.getAttribute("clasesTotales"));
 
-                    // Decidir qué subclase instanciar según el tipo
-                    switch (tipo) {
+                // Declaramos la variable abstracta padre
+                Asignatura asig = null;
+
+                // Decidir qué subclase instanciar según el tipo
+                switch (tipo) {
                         case "obligatoria":
                             asig = new AsignaturaObligatoria(cod, nombre, promocionable, cuatrimestre, clasesTotales);
                             break;
@@ -74,37 +86,32 @@ public class CargaDatos {
                             System.out.println("Tipo de asignatura desconocido: " + tipo);
                             continue; // Salta esta iteración si el tipo no es válido
                     }
-
                     // Guardar la subclase en la lista genérica de la Universidad
-                    if (asig != null) {
-                        uni.agregarAsignatura(asig);
-                    }
+                if (asig != null) {
+                    uni.agregarAsignatura(asig);
                 }
             }
-
-            // 4. Procesar e instanciar ALUMNOS
-            NodeList listaAlumnos = doc.getElementsByTagName("alumno");
-            for (int i = 0; i < listaAlumnos.getLength(); i++) {
-                Node nodo = listaAlumnos.item(i);
-
-                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-                    Element elemento = (Element) nodo;
-
-                    String matricula = elemento.getAttribute("matricula");
-                    String nombreYApellido = elemento.getAttribute("nombreYApellido");
-                    String fechaNacimiento = elemento.getAttribute("fechaNacimiento");
-
-                    Alumno alu = new Alumno(matricula, nombreYApellido, fechaNacimiento);
-                    uni.agregaAlumno(alu);
-                }
-            }
-
-            return true;
-
-        } catch (Exception e) {
-            System.err.println("Error al procesar el archivo XML: " + e.getMessage());
-            e.printStackTrace();
-            return false;
         }
+
+        // Procesar e instanciar ALUMNOS
+        NodeList listaAlumnos = doc.getElementsByTagName("alumno");
+        for (int i = 0; i < listaAlumnos.getLength(); i++) {
+            Node nodo = listaAlumnos.item(i);
+
+            if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                Element elemento = (Element) nodo;
+
+                String matricula = elemento.getAttribute("matricula");
+                String nombreYApellido = elemento.getAttribute("nombreYApellido");
+                String fechaNacimiento = elemento.getAttribute("fechaNacimiento");
+
+                Alumno alu = new Alumno(matricula, nombreYApellido, fechaNacimiento);
+                uni.agregaAlumno(alu);
+            }
+        }
+
+        return true;
+
+
     }
 }
