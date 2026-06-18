@@ -1,6 +1,7 @@
 package TPJAVA.domain.inscripciones;
 
-public enum TipoMateria {
+
+public enum TipoMateria  {
     OptativaPromocion(0.6),
     OptativaHabilita(0.5),
     ObligatoriaPromocion(0.8),

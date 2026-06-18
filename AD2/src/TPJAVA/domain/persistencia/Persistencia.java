@@ -27,4 +27,11 @@ public class Persistencia {
         Universidad.setInstancia(uniCargada);
 
     }
+
+    public static void borrarDatos() {
+        File file = new File("Universidad.dat");
+        if (file.exists()) {
+            file.delete();
+        }
+    }
 }

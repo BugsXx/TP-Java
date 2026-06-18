@@ -1,6 +1,8 @@
 package TPJAVA.domain.alumnos;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable {
     private String nombreYApellido;
     private String fechaNacimiento;
 

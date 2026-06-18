@@ -12,11 +12,12 @@ import TPJAVA.domain.inscripciones.InscripcionRegular;
 import TPJAVA.domain.inscripciones.exceptions.NoEncuentraInscripcionException;
 import TPJAVA.domain.inscripciones.Inscripcion;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Asignatura implements Comparable<Asignatura> {
+public abstract class Asignatura implements Comparable<Asignatura>, Serializable {
 
     private List<Inscripcion> inscripciones; // inscriptos, pueden ser condicional, oyente o regular
     private List<Clase> clases; //preguntar al profe, necesario? capaz conviene hacer una clase CALENDARIO que contenga esto y este dentro

@@ -7,10 +7,11 @@ import TPJAVA.domain.clase.exceptions.AlumnoConPresenteException;
 import TPJAVA.domain.inscripciones.Inscripcion;
 import TPJAVA.domain.inscripciones.exceptions.NoEncuentraInscripcionException;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Clase { // CLASE DE X DIA, NO UN TURNO
+public class Clase implements Serializable { // CLASE DE X DIA, NO UN TURNO
 
     private List<Alumno> asistencia; // lista de Alumnos que asistieron a la clase
     private String id;

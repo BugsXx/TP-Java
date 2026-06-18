@@ -3,10 +3,11 @@ package TPJAVA.domain.alumnos;
 import TPJAVA.domain.asignaturas.exceptions.YaInscriptoAAsignaturaException;
 import TPJAVA.domain.inscripciones.Inscripcion;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Alumno extends Persona implements Comparable<Alumno> {
+public class Alumno extends Persona implements Comparable<Alumno> , Serializable {
     private List<Inscripcion> inscripciones;
     private String matricula;
 

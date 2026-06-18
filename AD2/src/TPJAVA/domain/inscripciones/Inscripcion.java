@@ -4,11 +4,12 @@ import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.clase.Clase;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Inscripcion{
+public abstract class Inscripcion implements Serializable {
 
     private Asignatura asignatura;
     private Alumno alumno;

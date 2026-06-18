@@ -4,6 +4,7 @@ import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
 import TPJAVA.domain.clase.Clase;
 import TPJAVA.domain.persistencia.CargaDatos;
+import TPJAVA.domain.persistencia.Persistencia;
 import TPJAVA.domain.reportes.Reportes;
 import TPJAVA.domain.asignaturas.exceptions.NoEncuentraAsignaturaException;
 import TPJAVA.domain.universidad.Universidad;
@@ -44,11 +45,13 @@ public class Menu {
         JButton btnRanking = new JButton("Ver Ranking de Asignaturas");
         JButton btnDetalle = new JButton("Detalle de Alumnos");
         JButton btnLibres = new JButton("Alumnos Libres / Errores");
+        JButton btnReset = new JButton("Resetear Datos");
 
         panelAcciones.add(btnAsistencia);
         panelAcciones.add(btnRanking);
         panelAcciones.add(btnDetalle);
         panelAcciones.add(btnLibres);
+        panelAcciones.add(btnReset);
 
         gbc.gridy = 1;
         ventana.add(panelAcciones, gbc);
@@ -58,9 +61,10 @@ public class Menu {
         btnDetalle.addActionListener(e -> mostrarDetalleCatedra(ventana));
         btnLibres.addActionListener(e -> mostrarLibres(ventana));
         btnAsistencia.addActionListener(e -> registrarAsistencia(ventana));
+        btnReset.addActionListener(e -> BotonReset(ventana));
 
         ventana.pack();
-        ventana.setSize(400, 400);
+        ventana.setSize(500, 500);
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
     }
@@ -147,10 +151,32 @@ public class Menu {
             }
 
             clase.tomaAsistencia(alu);
-
+            Persistencia.guardarUniversidad();
             JOptionPane.showMessageDialog(parent, "Asistencia registrada correctamente para " + alu.getNombreYApellido());
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(parent, "Error: " + e.getMessage());
         }
-    }}
+    }
+    private static void BotonReset(JFrame parent) {
+
+            int confirm = JOptionPane.showConfirmDialog(
+                    parent,
+                    "¿Está seguro de que desea borrar todos los datos y restaurar la carga inicial?",
+                    "Confirmar Reset",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                Persistencia.borrarDatos();
+                Universidad.setInstancia(null);
+                JOptionPane.showMessageDialog(parent, "Los datos se reiniciaron por defecto");
+                try{
+                    CargaDatos.cargarDesdeXML();
+                }catch ( java.lang.Exception er){
+
+                }
+            }
+
+    }
+}

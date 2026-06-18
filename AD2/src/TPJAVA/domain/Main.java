@@ -9,7 +9,6 @@ public class Main {
 
         Menu.inicializaApp();
         Menu.abreMenu(); //inicio del flow de la app
-        Universidad universidad = Universidad.getUniversidad();
 
     }
 
