@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<universidad>
+    <asignaturas>
+        <asignatura tipo="obligatoria" cod="ASIG001" nombre="Algoritmos Y Estructuras de Datos II" promocionable="true" cuatrimestre="1" clasesTotales="32">
+            <clases>
+                <clase id="C001" fecha="2026-06-01 08:00" />
+                <clase id="C002" fecha="2026-06-08 08:00" />
+            </clases>
+        </asignatura>
+        <asignatura tipo="taller" cod="ASIG002" nombre="Base de Datos" promocionable="true" cuatrimestre="1" clasesTotales="30">
+            <clases>
+                <clase id="C003" fecha="2026-06-02 10:00" />
+            </clases>
+        </asignatura>
+        <asignatura tipo="optativa" cod="ASIG003" nombre="Inteligencia Artificial" promocionable="false" cuatrimestre="2" clasesTotales="24">
+            <clases>
+                <clase id="C006" fecha="2026-06-03 14:00" />
+            </clases>
+        </asignatura>
+    </asignaturas>
+
+    <alumnos>
+        <alumno matricula="1001" nombreYApellido="Juan Perez" fechaNacimiento="2000-05-15">
+            <inscripcion asignaturaCod="ASIG999" condicion="r" />
+            <inscripcion asignaturaCod="ASIG001" condicion="r">
+                <asistencia claseId="C999" />
+                <asistencia claseId="C001" />
+            </inscripcion>
+        </alumno>
+        <alumno matricula="1002" nombreYApellido="Maria Gomez" fechaNacimiento="1999-11-22">
+            <inscripcion asignaturaCod="ASIG003" condicion="o">
+                <asistencia claseId="C006" />
+            </inscripcion>
+        </alumno>
+    </alumnos>
+</universidad>
