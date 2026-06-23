@@ -60,15 +60,15 @@ public class Universidad implements Serializable {
         this.nombre = nombre;
     }
 
-    public Asignatura encuentraAsignatura(String cod) throws NoEncuentraAsignaturaException{
-        Iterator<Asignatura> it = asignaturas.iterator();
-        Asignatura asignaturaActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
+    public Asignatura encuentraAsignatura(String cod) throws NoEncuentraAsignaturaException {
+        if (cod == null) throw new NoEncuentraAsignaturaException();
 
-        while (it.hasNext() && !asignaturaActual.getCod().equals(cod))
-            asignaturaActual = it.next();
-        if (asignaturaActual != null && asignaturaActual.getCod().equals(cod))
-            return asignaturaActual;
-        else throw new NoEncuentraAsignaturaException();
+        for (Asignatura asig : asignaturas) {
+            if (asig.getCod().trim().equalsIgnoreCase(cod.trim())) {
+                return asig;
+            }
+        }
+        throw new NoEncuentraAsignaturaException();
     }
 
 

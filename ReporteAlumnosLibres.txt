@@ -1,9 +1,6 @@
-Alumnos LIBRES en TODAS las asignaturas:
+Alumnos LIBRES para el Año: 5
 
-
-Asignatura: Algoritmos Y Estructuras de Datos II
- - Juan Perez (1001)
-
-Asignatura: Inteligencia Artificial
- (Sin alumnos libres)
+Asignatura: Pasantía Profesional
+ - Ana Ruiz (1004)
+ - Jorge Sol (1007)
 

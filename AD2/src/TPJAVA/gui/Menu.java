@@ -104,55 +104,57 @@ public class Menu {
     }
 
     private static void mostrarLibres(JFrame parent) {
-            Object[] opciones = {"Año 1", "Año 2", "Año 3", "Año 4", "Año 5", "Ver Todos"};
+        Object[] opciones = {"Año 1", "Año 2", "Año 3", "Año 4", "Año 5", "Ver Todos"};
 
-            int seleccion = JOptionPane.showOptionDialog(
-                    parent,
-                    "Seleccione el año a consultar:",
-                    "Listado de Alumnos Libres",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    opciones,
-                    opciones[5] // Opción por defecto
-            );
+        int seleccion = JOptionPane.showOptionDialog(
+                parent,
+                "Seleccione el año a consultar:",
+                "Listado de Alumnos Libres",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[5] // Opción por defecto ("Ver Todos")
+        );
 
-            Integer anio = null;
-            if (seleccion >= 0 && seleccion <= 5) {
-                anio = seleccion + 1;
-            }
-            StringBuilder sb = new StringBuilder();
-            if (anio != 6) {
-                sb.append("Alumnos LIBRES para el Año: ").append(anio).append("\n");
+        if (seleccion == JOptionPane.CLOSED_OPTION) {
+            return;
+        }
+
+        Integer anio = seleccion + 1;
+        StringBuilder sb = new StringBuilder();
+
+
+        if (seleccion == 5) {
+            sb.append("Alumnos LIBRES en TODAS las asignaturas:\n");
+        } else {
+            sb.append("Alumnos LIBRES para el Año: ").append(anio).append("\n");
+        }
+
+        String informe = Reportes.listarAlumnosLibres(anio);
+
+        if (informe == null || informe.trim().isEmpty()) {
+            String mensajeVacio;
+            if (seleccion == 5) {
+                mensajeVacio = "No hay alumnos libres en ningún año.";
             } else {
-                sb.append("Alumnos LIBRES en TODAS las asignaturas:\n");
+                mensajeVacio = "No hay alumnos libres en el Año " + anio;
+            }
+            JOptionPane.showMessageDialog(parent, mensajeVacio, "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            String informeCompleto = sb.toString() + informe;
+
+            try (PrintWriter write = new PrintWriter(new FileWriter("ReporteAlumnosLibres.txt"))) {
+                write.println(informeCompleto);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            String informe = Reportes.listarAlumnosLibres(anio);
-
-            if (informe == null || informe.trim().isEmpty()) {
-
-                String mensajeVacio;
-                if (anio != 6) {
-                    mensajeVacio = "No hay alumnos libres en el Año " + anio;
-                } else {
-                    mensajeVacio = "No hay alumnos libres en ningún año.";
-                }
-                JOptionPane.showMessageDialog(parent, mensajeVacio, "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            }else{
-
-                try(PrintWriter write = new PrintWriter(new FileWriter("ReporteAlumnosLibres.txt"))){
-                    write.println(sb);
-                    write.println(informe);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                JTextArea area = new JTextArea(informe, 15, 40);
-                area.setEditable(false);
-                area.setCaretPosition(0);
-                JOptionPane.showMessageDialog(parent, new JScrollPane(area), "Listado de Alumnos", JOptionPane.INFORMATION_MESSAGE);
-            }
-
+            JTextArea area = new JTextArea(informeCompleto, 15, 40);
+            area.setEditable(false);
+            area.setCaretPosition(0);
+            JOptionPane.showMessageDialog(parent, new JScrollPane(area), "Listado de Alumnos", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private static void registrarAsistencia(JFrame parent) {

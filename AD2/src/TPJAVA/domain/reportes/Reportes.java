@@ -43,20 +43,28 @@ public class Reportes {
         Universidad uni = Universidad.getUniversidad();
         StringBuilder sb = new StringBuilder();
 
-
         for (Asignatura asig : uni.getAsignaturas()) {
-            boolean filtrar = (anio == 6) || (asig.getCuatrimestre() > (anio-1)*2 && asig.getCuatrimestre() <= anio*2);
+
+            boolean filtrar = anio.equals(6) ||
+                    (asig.getCuatrimestre() > (anio - 1) * 2 && asig.getCuatrimestre() <= anio * 2);
 
             if (filtrar) {
-                sb.append("\nAsignatura: ").append(asig.getNombre()).append("\n");
+                StringBuilder alumnosAsigSB = new StringBuilder();
                 boolean tieneLibres = false;
+
                 for (Inscripcion insc : asig.getInscripciones()) {
-                    if (insc.Condicion().equalsIgnoreCase("Libre")) {
-                        sb.append(" - ").append(insc.getAlumno().getNombreYApellido()).append(" (").append(insc.getAlumno().getMatricula()).append(")\n");
+                    if (insc.Condicion().equals("Libre")) {
+                        alumnosAsigSB.append(" - ")
+                                .append(insc.getAlumno().getNombreYApellido())
+                                .append(" (").append(insc.getAlumno().getMatricula()).append(")\n");
                         tieneLibres = true;
                     }
                 }
-                if (!tieneLibres) sb.append(" (Sin alumnos libres)\n");
+
+                if (tieneLibres) {
+                    sb.append("\nAsignatura: ").append(asig.getNombre()).append("\n");
+                    sb.append(alumnosAsigSB);
+                }
             }
         }
         return sb.toString();

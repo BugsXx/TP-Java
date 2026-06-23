@@ -20,14 +20,14 @@
                 <clase id="C007" fecha="2026-06-10 14:00" />
             </clases>
         </asignatura>
-        <asignatura tipo="pasantia" cod="ASIG004" nombre="Pasantía Profesional" promocionable="false" cuatrimestre="2" clasesTotales="10">
+        <asignatura tipo="pasantia" cod="ASIG004" nombre="Pasantía Profesional" promocionable="false" cuatrimestre="9" clasesTotales="10">
             <clases>
                 <clase id="C008" fecha="2026-06-04 09:00" />
                 <clase id="C009" fecha="2026-06-11 09:00" />
                 <clase id="C010" fecha="2026-06-18 09:00" />
             </clases>
         </asignatura>
-        <asignatura tipo="obligatoria" cod="ASIG005" nombre="Sistemas Operativos" promocionable="true" cuatrimestre="2" clasesTotales="28">
+        <asignatura tipo="obligatoria" cod="ASIG005" nombre="Sistemas Operativos" promocionable="true" cuatrimestre="5" clasesTotales="28">
             <clases>
                 <clase id="C011" fecha="2026-06-05 16:00" />
                 <clase id="C012" fecha="2026-06-12 16:00" />
