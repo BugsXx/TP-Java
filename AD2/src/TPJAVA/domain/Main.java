@@ -1,7 +1,5 @@
 package TPJAVA.domain;
 
-import TPJAVA.domain.persistencia.CargaDatos;
-import TPJAVA.domain.universidad.Universidad;
 import TPJAVA.gui.Menu;
 
 public class Main {

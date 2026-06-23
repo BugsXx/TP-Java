@@ -1,2 +1,35 @@
+ASIG001
+Nombre de la asignatura: Algoritmos Y Estructuras de Datos II
 
+--- Alumno ---
+Nombre: Juan Perez
+Matrícula: 1001
+Fecha Nacimiento: 2000-05-15
+Asistencia: 100.0%
+Modalidad: Regular
+Condición: En Condiciones De Promocionar
+
+--- Alumno ---
+Nombre: Maria Gomez
+Matrícula: 1002
+Fecha Nacimiento: 1999-11-22
+Asistencia: 50.0%
+Modalidad: Regular
+Condición: Libre
+
+--- Alumno ---
+Nombre: Luis Diaz
+Matrícula: 1005
+Fecha Nacimiento: 1998-12-05
+Asistencia: 50.0%
+Modalidad: Oyente
+Condición: Oyente
+
+--- Alumno ---
+Nombre: Sofia Mar
+Matrícula: 1008
+Fecha Nacimiento: 2001-02-14
+Asistencia: 100.0%
+Modalidad: Regular
+Condición: En Condiciones De Promocionar
 

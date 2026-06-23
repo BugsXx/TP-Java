@@ -72,9 +72,9 @@ public class Menu {
 
     private static void mostrarRanking(JFrame parent) {
         StringBuilder sb = new StringBuilder("Top 3 Asignaturas:\n");
+        sb.append("\n");
         try(PrintWriter write = new PrintWriter(new FileWriter("ReporteRankingPresentismo.txt"))){
             List ranking = Reportes.rankingPresentismo();
-            write.println(sb);
             for (Object o : ranking) {
                 sb.append(o.toString()).append("\n") ;
             }
@@ -87,7 +87,7 @@ public class Menu {
     }
 
     private static void mostrarDetalleCatedra(JFrame parent) {
-        String cod = JOptionPane.showInputDialog(parent, "Ingrese código de asignatura:");
+        String cod = JOptionPane.showInputDialog(parent, "Ingrese código de asignatura:").toUpperCase();
         if (cod != null) {
             try(PrintWriter write = new PrintWriter(new FileWriter("ReporteDetalleCatedra.txt"))){
                 write.println(cod);
@@ -156,13 +156,13 @@ public class Menu {
     }
 
     private static void registrarAsistencia(JFrame parent) {
-        String codAsig = JOptionPane.showInputDialog(parent, "Código de Asignatura:");
+        String codAsig = JOptionPane.showInputDialog(parent, "Código de Asignatura:").toUpperCase();
         if (codAsig == null) return;
 
-        String idClase = JOptionPane.showInputDialog(parent, "ID de la Clase:");
+        String idClase = JOptionPane.showInputDialog(parent, "ID de la Clase:").toUpperCase();
         if (idClase == null) return;
 
-        String matAlumno = JOptionPane.showInputDialog(parent, "Matrícula del Alumno:");
+        String matAlumno = JOptionPane.showInputDialog(parent, "Matrícula del Alumno:").toUpperCase();
         if (matAlumno == null) return;
 
         try {

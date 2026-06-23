@@ -1,11 +1,6 @@
-ASIG001
-Nombre de la asignatura: Algoritmos Y Estructuras de Datos II
+Top 3 Asignaturas:
 
---- Alumno ---
-Nombre: Juan Perez
-Matrícula: 1001
-Fecha Nacimiento: 2000-05-15
-Asistencia: 50,0%
-Modalidad: Regular
-Condición: Libre
+Pasantía Profesional (Cod: ASIG004) - Presentismo: 16.7%
+Base de Datos (Cod: ASIG002) - Presentismo: 7.5%
+Sistemas Operativos (Cod: ASIG005) - Presentismo: 7.1%
 
