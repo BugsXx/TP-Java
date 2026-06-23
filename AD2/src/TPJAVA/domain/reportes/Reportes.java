@@ -43,14 +43,9 @@ public class Reportes {
         Universidad uni = Universidad.getUniversidad();
         StringBuilder sb = new StringBuilder();
 
-        if (anio != null) {
-            sb.append("Alumnos LIBRES para el Año: ").append(anio).append("\n");
-        } else {
-            sb.append("Alumnos LIBRES en TODAS las asignaturas:\n");
-        }
 
         for (Asignatura asig : uni.getAsignaturas()) {
-            boolean filtrar = (anio == null) || (asig.getCuatrimestre() > (anio-1)*2 && asig.getCuatrimestre() <= anio*2);
+            boolean filtrar = (anio == 6) || (asig.getCuatrimestre() > (anio-1)*2 && asig.getCuatrimestre() <= anio*2);
 
             if (filtrar) {
                 sb.append("\nAsignatura: ").append(asig.getNombre()).append("\n");

@@ -1,2 +1,9 @@
-Alumnos LIBRES para el Año: 2
+Alumnos LIBRES en TODAS las asignaturas:
+
+
+Asignatura: Algoritmos Y Estructuras de Datos II
+ - Juan Perez (1001)
+
+Asignatura: Inteligencia Artificial
+ (Sin alumnos libres)
 

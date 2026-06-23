@@ -74,14 +74,11 @@ public class Menu {
         StringBuilder sb = new StringBuilder("Top 3 Asignaturas:\n");
         try(PrintWriter write = new PrintWriter(new FileWriter("ReporteRankingPresentismo.txt"))){
             List ranking = Reportes.rankingPresentismo();
-            String linea = "Top 3 Asignaturas:\n";
-            write.println(linea);
-            System.out.println(linea);
+            write.println(sb);
             for (Object o : ranking) {
-                linea = o.toString();
-                sb.append(linea).append("\n");
-                write.println(linea);
+                sb.append(o.toString()).append("\n") ;
             }
+            write.println(sb);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,22 +118,31 @@ public class Menu {
             );
 
             Integer anio = null;
-            if (seleccion >= 0 && seleccion <= 4) {
+            if (seleccion >= 0 && seleccion <= 5) {
                 anio = seleccion + 1;
+            }
+            StringBuilder sb = new StringBuilder();
+            if (anio != 6) {
+                sb.append("Alumnos LIBRES para el Año: ").append(anio).append("\n");
+            } else {
+                sb.append("Alumnos LIBRES en TODAS las asignaturas:\n");
             }
 
             String informe = Reportes.listarAlumnosLibres(anio);
+
             if (informe == null || informe.trim().isEmpty()) {
 
                 String mensajeVacio;
-                if (anio != null) {
+                if (anio != 6) {
                     mensajeVacio = "No hay alumnos libres en el Año " + anio;
                 } else {
                     mensajeVacio = "No hay alumnos libres en ningún año.";
                 }
                 JOptionPane.showMessageDialog(parent, mensajeVacio, "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }else{
+
                 try(PrintWriter write = new PrintWriter(new FileWriter("ReporteAlumnosLibres.txt"))){
+                    write.println(sb);
                     write.println(informe);
                 } catch (IOException e) {
                     e.printStackTrace();
