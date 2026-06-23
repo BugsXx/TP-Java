@@ -17,6 +17,8 @@ public class InscripcionRegular extends Inscripcion {
     public boolean Habilita(){
         return getAsignatura().cumpleCondicionHabilita(getAsistencias(), 1);
     }
+
+    @Override
     public String Modalidad(){
         return "Regular";
     }

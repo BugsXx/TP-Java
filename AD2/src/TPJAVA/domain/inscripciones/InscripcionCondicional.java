@@ -10,6 +10,7 @@ public class InscripcionCondicional extends Inscripcion {
     public InscripcionCondicional(Asignatura asignatura, Alumno alumno){
         super(asignatura, alumno);
     }
+
     @Override
     public boolean Promociona(){
         return getAsignatura().cumpleCondicionPromocion(getAsistencias(), 1.2F);
@@ -21,6 +22,7 @@ public class InscripcionCondicional extends Inscripcion {
         return getAsignatura().cumpleCondicionHabilita(getAsistencias(), 1.2F);
     }
 
+    @Override
     public String Modalidad(){
         return "Condicional";
     }

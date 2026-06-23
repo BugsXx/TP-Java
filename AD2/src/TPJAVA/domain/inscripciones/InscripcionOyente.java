@@ -19,10 +19,12 @@ public class InscripcionOyente extends Inscripcion {
         return false;
     }
 
+    @Override
     public String Modalidad(){
         return "Oyente";
     }
 
+    @Override
     public String Condicion(){
         return "Oyente";
     }
