@@ -11,6 +11,7 @@ import TPJAVA.domain.universidad.Universidad;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.util.List;
 
 public class Menu {
@@ -70,10 +71,20 @@ public class Menu {
     }
 
     private static void mostrarRanking(JFrame parent) {
-        List ranking = Reportes.rankingPresentismo();
-        StringBuilder sb = new StringBuilder("Top 3 Asignaturas:\n\n");
-        for (Object o : ranking) {
-            sb.append(o.toString()).append("\n");
+        StringBuilder sb = new StringBuilder("Top 3 Asignaturas:\n");
+        try(PrintWriter write = new PrintWriter(new FileWriter("ReporteRankingPresentismo.txt"))){
+            List ranking = Reportes.rankingPresentismo();
+            String linea = "Top 3 Asignaturas:\n";
+            write.println(linea);
+            System.out.println(linea);
+            for (Object o : ranking) {
+                linea = o.toString();
+                sb.append(linea).append("\n");
+                write.println(linea);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         JOptionPane.showMessageDialog(parent, new JScrollPane(new JTextArea(sb.toString(), 10, 30)));
     }
@@ -81,40 +92,61 @@ public class Menu {
     private static void mostrarDetalleCatedra(JFrame parent) {
         String cod = JOptionPane.showInputDialog(parent, "Ingrese código de asignatura:");
         if (cod != null) {
-            try {
+            try(PrintWriter write = new PrintWriter(new FileWriter("ReporteDetalleCatedra.txt"))){
+                write.println(cod);
                 String detalle = Reportes.detalleCatedra(cod);
+                write.println(detalle);
                 JTextArea area = new JTextArea(detalle, 15, 40);
                 JOptionPane.showMessageDialog(parent, new JScrollPane(area));
             } catch (NoEncuentraAsignaturaException e) {
                 JOptionPane.showMessageDialog(parent, "Asignatura no encontrada.");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
 
     private static void mostrarLibres(JFrame parent) {
-        Object[] opciones = {"Año 1", "Año 2", "Año 3", "Año 4", "Año 5", "Ver Todos"};
+            Object[] opciones = {"Año 1", "Año 2", "Año 3", "Año 4", "Año 5", "Ver Todos"};
 
-        int seleccion = JOptionPane.showOptionDialog(
-                parent,
-                "Seleccione el año a consultar:",
-                "Listado de Alumnos Libres",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                opciones,
-                opciones[5] // Opción por defecto
-        );
+            int seleccion = JOptionPane.showOptionDialog(
+                    parent,
+                    "Seleccione el año a consultar:",
+                    "Listado de Alumnos Libres",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opciones,
+                    opciones[5] // Opción por defecto
+            );
 
-        Integer anio = null;
-        if (seleccion >= 0 && seleccion <= 4) {
-            anio = seleccion + 1;
-        }
+            Integer anio = null;
+            if (seleccion >= 0 && seleccion <= 4) {
+                anio = seleccion + 1;
+            }
 
-        String informe = Reportes.listarAlumnosLibres(anio);
+            String informe = Reportes.listarAlumnosLibres(anio);
+            if (informe == null || informe.trim().isEmpty()) {
 
-        JTextArea area = new JTextArea(informe, 15, 40);
-        area.setEditable(false);
-        JOptionPane.showMessageDialog(parent, new JScrollPane(area));
+                String mensajeVacio;
+                if (anio != null) {
+                    mensajeVacio = "No hay alumnos libres en el Año " + anio;
+                } else {
+                    mensajeVacio = "No hay alumnos libres en ningún año.";
+                }
+                JOptionPane.showMessageDialog(parent, mensajeVacio, "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                try(PrintWriter write = new PrintWriter(new FileWriter("ReporteAlumnosLibres.txt"))){
+                    write.println(informe);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JTextArea area = new JTextArea(informe, 15, 40);
+                area.setEditable(false);
+                area.setCaretPosition(0);
+                JOptionPane.showMessageDialog(parent, new JScrollPane(area), "Listado de Alumnos", JOptionPane.INFORMATION_MESSAGE);
+            }
+
     }
 
     private static void registrarAsistencia(JFrame parent) {

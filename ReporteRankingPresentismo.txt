@@ -1,0 +1,11 @@
+ASIG001
+Nombre de la asignatura: Algoritmos Y Estructuras de Datos II
+
+--- Alumno ---
+Nombre: Juan Perez
+Matrícula: 1001
+Fecha Nacimiento: 2000-05-15
+Asistencia: 50,0%
+Modalidad: Regular
+Condición: Libre
+
