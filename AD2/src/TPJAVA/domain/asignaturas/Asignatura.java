@@ -73,6 +73,7 @@ public abstract class Asignatura implements Comparable<Asignatura>, Serializable
 
 
     private Inscripcion buscaInscripto(Alumno alumno){
+
         Iterator<Inscripcion> it = inscripciones.iterator();
         Inscripcion inscripcionActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
 
@@ -117,7 +118,6 @@ public abstract class Asignatura implements Comparable<Asignatura>, Serializable
 
         alumno.agregaInscripcion(nueva);
         inscripciones.add(nueva);
-
     }
 
     public void creaClase(Clase clase) throws ClaseExistenteException {

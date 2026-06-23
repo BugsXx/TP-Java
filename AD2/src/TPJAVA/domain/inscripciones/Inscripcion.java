@@ -74,7 +74,7 @@ public abstract class Inscripcion implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Inscripcion)
-            return ((Inscripcion) obj).asignatura == this.asignatura && ((Inscripcion) obj).alumno == this.alumno;
+            return ((Inscripcion) obj).asignatura.equals(this.asignatura) && ((Inscripcion) obj).alumno.equals(this.alumno);
         else  return false;
     }
 }
