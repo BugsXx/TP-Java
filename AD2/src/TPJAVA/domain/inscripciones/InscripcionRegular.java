@@ -4,8 +4,6 @@ import TPJAVA.domain.alumnos.Alumno;
 import TPJAVA.domain.asignaturas.Asignatura;
 
 public class InscripcionRegular extends Inscripcion {
-    //agregar posibles metodos
-
     public InscripcionRegular(Asignatura asignatura, Alumno alumno){
         super(asignatura, alumno);
     }

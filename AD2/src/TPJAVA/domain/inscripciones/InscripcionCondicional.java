@@ -5,8 +5,6 @@ import TPJAVA.domain.asignaturas.Asignatura;
 
 public class InscripcionCondicional extends Inscripcion {
 
-
-    //agregar posibles metodos
     public InscripcionCondicional(Asignatura asignatura, Alumno alumno){
         super(asignatura, alumno);
     }

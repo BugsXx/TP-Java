@@ -74,9 +74,7 @@ public class Reportes {
     public static List<Asignatura> rankingPresentismo() {
         List<Asignatura> lista = new ArrayList<>(Universidad.getUniversidad().getAsignaturas());
 
-        lista.sort((a1, a2) -> {
-            return Float.compare(a2.calculaPresentismo(), a1.calculaPresentismo());
-        });
+        lista.sort((a1, a2) -> Float.compare(a2.calculaPresentismo(), a1.calculaPresentismo()));
 
         return lista.subList(0, Math.min(3, lista.size()));
     }

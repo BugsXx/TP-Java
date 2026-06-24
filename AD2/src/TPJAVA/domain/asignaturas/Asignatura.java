@@ -76,9 +76,9 @@ public abstract class Asignatura implements Comparable<Asignatura>, Serializable
 
     private Inscripcion buscaInscripto(Alumno alumno){
         Iterator<Inscripcion> it = inscripciones.iterator();
-        Inscripcion inscripcionActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
+        Inscripcion inscripcionActual =  it.next();
         while (it.hasNext() && !inscripcionActual.getAlumno().equals(alumno)) {
-            inscripcionActual = it.next(); // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
+            inscripcionActual = it.next();
         }
         return inscripcionActual;
     }

@@ -34,7 +34,7 @@ public class Menu {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
 
-        // Título
+        // Titulo
         JLabel lblTitulo = new JLabel("SISTEMA ACADÉMICO", JLabel.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 22));
         gbc.gridy = 0;
@@ -57,7 +57,7 @@ public class Menu {
         gbc.gridy = 1;
         ventana.add(panelAcciones, gbc);
 
-        // Lógica de botones
+        // Logica de botones
         btnRanking.addActionListener(e -> mostrarRanking(ventana));
         btnDetalle.addActionListener(e -> mostrarDetalleCatedra(ventana));
         btnLibres.addActionListener(e -> mostrarLibres(ventana));
