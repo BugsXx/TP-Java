@@ -1,0 +1,14 @@
+TPJAVA.domain
+TPJAVA.domain.alumnos
+TPJAVA.domain.asignaturas
+TPJAVA.domain.asignaturas.exceptions
+TPJAVA.domain.clase
+TPJAVA.domain.clase.exceptions
+TPJAVA.domain.inscripciones
+TPJAVA.domain.inscripciones.exceptions
+TPJAVA.domain.persistencia
+TPJAVA.domain.persistencia.exceptions
+TPJAVA.domain.reportes
+TPJAVA.domain.universidad
+TPJAVA.domain.universidad.exceptions
+TPJAVA.gui
