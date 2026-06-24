@@ -26,30 +26,20 @@ public class Universidad implements Serializable {
     private TreeSet<Alumno> alumnos;
     private String nombre;
 
-
-    public static void setInstancia(Universidad uniDeserializada) {
-        universidad = uniDeserializada;
+    private Universidad(){
+        asignaturas = new TreeSet<>();
+        alumnos = new TreeSet<>();
     }
+
     public static Universidad getUniversidad(){
         if (universidad == null) {
             universidad = new Universidad();
         }
         return universidad;
     }
+
     public  TreeSet<Alumno> getAlumnos(){
         return  alumnos;
-    }
-
-    private Universidad(){
-        asignaturas = new TreeSet<>();
-        alumnos = new TreeSet<>();
-    }
-
-    public void agregarAsignatura(Asignatura asignatura)throws AsignaturaExistenteException {
-        if(!asignaturas.contains(asignatura)){
-            asignaturas.add(asignatura);
-        }
-        else throw new AsignaturaExistenteException("Ya existe la asignatura en la universidad");
     }
 
     public TreeSet<Asignatura> getAsignaturas(){
@@ -58,6 +48,17 @@ public class Universidad implements Serializable {
 
     public void setNombre(String nombre){
         this.nombre = nombre;
+    }
+
+    public static void setInstancia(Universidad uniDeserializada) {
+        universidad = uniDeserializada;
+    }
+
+    public void agregarAsignatura(Asignatura asignatura)throws AsignaturaExistenteException {
+        if(!asignaturas.contains(asignatura)){
+            asignaturas.add(asignatura);
+        }
+        else throw new AsignaturaExistenteException("Ya existe la asignatura en la universidad");
     }
 
     public Asignatura encuentraAsignatura(String cod) throws NoEncuentraAsignaturaException {
@@ -70,7 +71,6 @@ public class Universidad implements Serializable {
         }
         throw new NoEncuentraAsignaturaException();
     }
-
 
     public void agregaAlumno(Alumno alumno)throws YaEstaInscriptoElAlumnoALaUniversidadException{
         if(! alumnos.contains(alumno))

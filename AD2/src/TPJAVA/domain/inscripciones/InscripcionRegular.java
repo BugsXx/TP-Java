@@ -9,17 +9,19 @@ public class InscripcionRegular extends Inscripcion {
     public InscripcionRegular(Asignatura asignatura, Alumno alumno){
         super(asignatura, alumno);
     }
+
     @Override
-    public boolean Promociona(){
+    public boolean promociona(){
         return getAsignatura().cumpleCondicionPromocion(getAsistencias(), 1);
     }
+
     @Override
-    public boolean Habilita(){
+    public boolean habilita(){
         return getAsignatura().cumpleCondicionHabilita(getAsistencias(), 1);
     }
 
     @Override
-    public String Modalidad(){
+    public String modalidad(){
         return "Regular";
     }
 }

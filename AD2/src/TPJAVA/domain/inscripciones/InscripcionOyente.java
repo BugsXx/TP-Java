@@ -10,22 +10,20 @@ public class InscripcionOyente extends Inscripcion {
     }
 
     @Override
-    public boolean Promociona(){ // el oyente no puede promocionar
+    public boolean promociona(){ // el oyente no puede promocionar
         return false;
     }
 
     @Override
-    public boolean Habilita(){ // el oyente no puede habilitar
+    public boolean habilita(){ // el oyente no puede habilitar
         return false;
     }
 
     @Override
-    public String Modalidad(){
-        return "Oyente";
-    }
+    public String modalidad() { return "Oyente"; }
 
     @Override
-    public String Condicion(){
+    public String condicion(){
         return "Oyente";
     }
 }

@@ -23,19 +23,19 @@ public abstract class Inscripcion implements Serializable {
         asistencias = 0;
     }
 
-    public String Condicion() {
-        if(Promociona()){
+    public String condicion() {
+        if(promociona()){
             return "En Condiciones De Promocionar";
         }
-        else if(Habilita()){
+        else if(habilita()){
             return "En Condiciones De Habilitar";
         }
         else return "Libre";
     }
 
-    public abstract boolean Promociona();
-    public  abstract boolean Habilita();
-    public abstract String Modalidad();
+    public abstract boolean promociona();
+    public  abstract boolean habilita();
+    public abstract String modalidad();
 
     public Asignatura getAsignatura(){
         return asignatura;

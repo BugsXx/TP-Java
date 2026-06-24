@@ -27,6 +27,15 @@ public abstract class Asignatura implements Comparable<Asignatura>, Serializable
     private int cuatrimestre; // DE 1 A 10
     private boolean promocionable;
 
+    public Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
+        clases = new LinkedList<>();
+        inscripciones = new LinkedList<>();
+        this.cod = cod;
+        this.nombre = nombre;
+        this.promocionable = promocionable;
+        this.cuatrimestre = cuatrimestre;
+        this.clasesTotales = clasesTotales;
+    }
 
     public int getClasesTotales(){
         return clases.size();
@@ -36,12 +45,17 @@ public abstract class Asignatura implements Comparable<Asignatura>, Serializable
         return promocionable;
     }
 
-    public int getCuatrimestre() {
-        return cuatrimestre;
+    public Clase getClase(String id) {
+        for (Clase clase : clases) {
+            if (clase.getId().equals(id)) {
+                return clase;
+            }
+        }
+        return null;
     }
 
-    public boolean equals(Asignatura obj) {
-        return obj.getCod().equals(getCod());
+    public int getCuatrimestre() {
+        return cuatrimestre;
     }
 
     public String getCod(){
@@ -57,26 +71,12 @@ public abstract class Asignatura implements Comparable<Asignatura>, Serializable
     }
 
     public abstract boolean cumpleCondicionPromocion(int asistenciasAlumno, float condicion);
+
     public abstract boolean cumpleCondicionHabilita(int asistenciasAlumno, float condicion);
 
-
-
-    public Asignatura(String cod, String nombre, boolean promocionable, int cuatrimestre, int clasesTotales){
-        clases = new LinkedList<>();
-        inscripciones = new LinkedList<>();
-        this.cod = cod;
-        this.nombre = nombre;
-        this.promocionable = promocionable;
-        this.cuatrimestre = cuatrimestre;
-        this.clasesTotales = clasesTotales;
-    }
-
-
     private Inscripcion buscaInscripto(Alumno alumno){
-
         Iterator<Inscripcion> it = inscripciones.iterator();
         Inscripcion inscripcionActual = it.hasNext() ? it.next() : null; // la lista esta vacia? si esta vacia asignamos null, si no la cabeza
-
         while (it.hasNext() && !inscripcionActual.getAlumno().equals(alumno)) {
             inscripcionActual = it.next(); // es el ultimo? si es el ultimo, asignamos null al sig, si no, seguimos buscando
         }
@@ -84,16 +84,12 @@ public abstract class Asignatura implements Comparable<Asignatura>, Serializable
     }
 
     public void cargaAsistencia(Alumno alumno, Clase clase) throws NoEncuentraInscripcionException {
-
         Inscripcion inscripcionActual = buscaInscripto(alumno);
-
         if (inscripcionActual != null && inscripcionActual.getAlumno().equals(alumno)) { // lo encontramos?
             inscripcionActual.marcaAsistencia(clase);
-
         } else {
             throw new NoEncuentraInscripcionException(alumno);
         }
-
     }
 
     public Float calculaPresentismo(){
@@ -115,7 +111,6 @@ public abstract class Asignatura implements Comparable<Asignatura>, Serializable
         }else if(condicion == 'c'){
             nueva = new InscripcionCondicional(this, alumno);
         }else throw new NoCumpleCondicionException("La condicion de inscripcion no existe");
-
         alumno.agregaInscripcion(nueva);
         inscripciones.add(nueva);
     }
@@ -124,15 +119,6 @@ public abstract class Asignatura implements Comparable<Asignatura>, Serializable
         if(!clases.contains(clase))
             clases.add(clase);
         else throw new ClaseExistenteException("Ya existe la clase");
-    }
-
-    public Clase getClase(String id) {
-        for (Clase clase : clases) {
-            if (clase.getId().equals(id)) {
-                return clase;
-            }
-        }
-        return null;
     }
 
     @Override
